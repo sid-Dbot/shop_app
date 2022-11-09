@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/product_overview.dart';
 
 void main(List<String> args) {
   runApp(const MainApp());
@@ -14,9 +15,7 @@ class MainApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Shop'),
         ),
-        body: const Center(
-          child: Text('Welcome To Shop'),
-        ),
+        body: ProductsOverviewScreen(),
       ),
     );
   }
