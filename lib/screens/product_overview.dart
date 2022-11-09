@@ -14,7 +14,8 @@ class ProductsOverviewScreen extends StatelessWidget {
     Product(
         id: 'p2',
         title: 'Fishing Net',
-        description: 'Used for fishing. Applicable in large water masses.',
+        description: 'Used for fishing. Applicable in large water bodies.',
+        price: 2.3,
         imageUrl:
             'https://img.freepik.com/free-photo/fishing-nets_181624-31810.jpg?size=626&ext=jpg'),
   ];
