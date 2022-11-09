@@ -29,7 +29,7 @@ class ProductsOverviewScreen extends StatelessWidget {
       body: GridView.builder(
         padding: const EdgeInsets.all(7),
         itemCount: savedProducts.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2), itemBuilder: (context, index) {
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 3/2,mainAxisSpacing: 7,crossAxisSpacing: 7,), itemBuilder: (context, index) {
           return 
           
         },),
