@@ -28,7 +28,9 @@ class ProductsOverviewScreen extends StatelessWidget {
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(7),
+        itemCount: savedProducts.length,
         gridDelegate: , itemBuilder: (context, index) {
+          return 
           
         },),
     );
