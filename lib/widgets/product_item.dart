@@ -5,11 +5,11 @@ class ProductItem extends StatelessWidget {
   final String title;
   final String imageUrl;
 
-  ProductItem({
+  const ProductItem({
     required this.id,
     required this.title,
     required this.imageUrl,
-  })
+  });
 
   @override
   Widget build(BuildContext context) {
