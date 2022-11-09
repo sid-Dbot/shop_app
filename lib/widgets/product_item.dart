@@ -13,6 +13,6 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(child: Image.network('src'));
+    return GridTile(child: Image.network(imageUrl));
   }
 }
