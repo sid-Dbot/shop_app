@@ -26,6 +26,11 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Shop'),
       ),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(7),
+        gridDelegate: , itemBuilder: (context, index) {
+          
+        },),
     );
   }
 }
