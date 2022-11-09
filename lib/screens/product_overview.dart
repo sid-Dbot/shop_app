@@ -11,6 +11,12 @@ class ProductsOverviewScreen extends StatelessWidget {
       imageUrl:
           'https://www.shutterstock.com/image-photo/close-orange-iron-hammer-medium-260nw-1937103445.jpg',
     ),
+    Product(
+        id: 'p2',
+        title: 'Fishing Net',
+        description: 'Used for fishing. Applicable in large water masses.',
+        imageUrl:
+            'https://img.freepik.com/free-photo/fishing-nets_181624-31810.jpg?size=626&ext=jpg'),
   ];
 
   @override
