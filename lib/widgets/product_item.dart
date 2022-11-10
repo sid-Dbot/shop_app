@@ -20,28 +20,29 @@ class ProductItem extends StatelessWidget {
             .pushNamed(ProductDetails.routename, arguments: id);
       },
       child: GridTile(
-          footer = GridTileBar(
-            trailing: IconButton(
-              iconSize: 20,
-              icon: const Icon(
-                Icons.favorite_outline,
-              ),
-              onPressed: () {},
+        footer = GridTileBar(
+          trailing: IconButton(
+            iconSize: 20,
+            icon: const Icon(
+              Icons.favorite_outline,
             ),
-            leading: IconButton(
-              iconSize: 20,
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-              ),
-              onPressed: () {},
-            ),
-            backgroundColor: Colors.black38,
-            title: Text(title, textAlign: TextAlign.center),
+            onPressed: () {},
           ),
-          child = Image.network(
-            imageUrl,
-            fit: BoxFit.fill,
-          )),
+          leading: IconButton(
+            iconSize: 20,
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+            ),
+            onPressed: () {},
+          ),
+          backgroundColor: Colors.black38,
+          title: Text(title, textAlign: TextAlign.center),
+        ),
+        child = Image.network(
+          imageUrl,
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 }
