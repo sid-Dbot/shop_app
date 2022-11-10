@@ -16,9 +16,8 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(ProductDetails.routename,arguments: id
-            
-             ););
+        Navigator.of(context)
+            .pushNamed(ProductDetails.routename, arguments: id);
       },
       child: GridTile(
           footer = GridTileBar(
