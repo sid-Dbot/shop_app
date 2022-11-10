@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/product_details.dart';
 import 'package:shop_app/screens/product_overview.dart';
 
 void main(List<String> args) {
@@ -17,6 +18,7 @@ class MainApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
       ),
       home: ProductsOverviewScreen(),
+      routes: const {},
     );
   }
 }

@@ -5,6 +5,8 @@ class ProductDetails extends StatelessWidget {
 
   const ProductDetails({required this.title});
 
+  static const routename = '/product_details';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
