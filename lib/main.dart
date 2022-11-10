@@ -18,7 +18,9 @@ class MainApp extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
       ),
       home: ProductsOverviewScreen(),
-      routes: const {},
+      routes: {
+        ProductDetails.routename: (context) => ProductDetails(),
+      },
     );
   }
 }
