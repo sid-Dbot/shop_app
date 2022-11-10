@@ -12,8 +12,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
-            .copyWith(secondary: Colors.amber),
+        colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
         iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
       ),
       home: ProductsOverviewScreen(),
