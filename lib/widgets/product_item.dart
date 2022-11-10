@@ -17,7 +17,7 @@ class ProductItem extends StatelessWidget {
         footer: GridTileBar(
           title: Text(title,
               style: const TextStyle(backgroundColor: Colors.black38),
-              textAlign: TextAlign.end),
+              textAlign: TextAlign.center),
         ),
         child: Image.network(
           imageUrl,
