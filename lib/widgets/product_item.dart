@@ -26,7 +26,6 @@ class ProductItem extends StatelessWidget {
             iconSize: 20,
             icon: const Icon(
               Icons.shopping_cart_outlined,
-              color: Colors.black87,
             ),
             onPressed: () {},
           ),
