@@ -18,13 +18,13 @@ class ProductItem extends StatelessWidget {
           trailing: Column(
             children: [
               IconButton(
+                iconSize: 5,
                 icon: const Icon(Icons.shopping_cart_outlined),
                 onPressed: () {},
               ),
               IconButton(
                 icon: const Icon(
                   Icons.favorite_outline,
-                  size: 25,
                 ),
                 onPressed: () {},
               ),
