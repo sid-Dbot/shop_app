@@ -16,15 +16,12 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ProductDetails(
-                      title: title,
-                    )));
+        Navigator.of(context).pushNamed(ProductDetails.routename,arguments: id
+            
+             ););
       },
       child: GridTile(
-          footer: GridTileBar(
+          footer = GridTileBar(
             trailing: IconButton(
               iconSize: 20,
               icon: const Icon(
@@ -42,7 +39,7 @@ class ProductItem extends StatelessWidget {
             backgroundColor: Colors.black38,
             title: Text(title, textAlign: TextAlign.center),
           ),
-          child: Image.network(
+          child = Image.network(
             imageUrl,
             fit: BoxFit.fill,
           )),
