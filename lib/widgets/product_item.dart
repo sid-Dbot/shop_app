@@ -18,6 +18,7 @@ class ProductItem extends StatelessWidget {
           trailing: SizedBox(
             height: 45,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   iconSize: 5,
