@@ -22,7 +22,7 @@ class ProductItem extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: GridTile(
-          footer = GridTileBar(
+          footer: GridTileBar(
             trailing: IconButton(
               iconSize: 20,
               icon: const Icon(
@@ -40,7 +40,7 @@ class ProductItem extends StatelessWidget {
             backgroundColor: Colors.black38,
             title: Text(title, textAlign: TextAlign.center),
           ),
-          child = Image.network(
+          child: Image.network(
             imageUrl,
             fit: BoxFit.fill,
           ),
