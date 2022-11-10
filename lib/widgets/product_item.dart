@@ -14,9 +14,19 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridTile(
+        header: GridTileBar(
+          leading: IconButton(
+            iconSize: 20,
+            icon: const Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.black87,
+            ),
+            onPressed: () {},
+          ),
+        ),
         footer: GridTileBar(
           trailing: IconButton(
-            iconSize: 25,
+            iconSize: 20,
             icon: const Icon(
               Icons.favorite_outline,
             ),
