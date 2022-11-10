@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
             .copyWith(secondary: Colors.amber),
-        iconTheme: const IconThemeData(color: Colors.amber),
+        iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
       ),
       home: ProductsOverviewScreen(),
     );
