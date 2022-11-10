@@ -15,12 +15,20 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridTile(
         footer: GridTileBar(
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.favorite_outline,
-              size: 25,
-            ),
-            onPressed: () {},
+          trailing: Column(
+            children: [
+              IconButton(
+                icon: const Icon(Icons.shopping_cart_outlined),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.favorite_outline,
+                  size: 25,
+                ),
+                onPressed: () {},
+              ),
+            ],
           ),
           backgroundColor: Colors.black38,
           title: Text(title, textAlign: TextAlign.center),
