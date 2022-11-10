@@ -19,28 +19,31 @@ class ProductItem extends StatelessWidget {
         Navigator.of(context)
             .pushNamed(ProductDetails.routename, arguments: id);
       },
-      child: GridTile(
-        footer = GridTileBar(
-          trailing: IconButton(
-            iconSize: 20,
-            icon: const Icon(
-              Icons.favorite_outline,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: GridTile(
+          footer = GridTileBar(
+            trailing: IconButton(
+              iconSize: 20,
+              icon: const Icon(
+                Icons.favorite_outline,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
-          ),
-          leading: IconButton(
-            iconSize: 20,
-            icon: const Icon(
-              Icons.shopping_cart_outlined,
+            leading: IconButton(
+              iconSize: 20,
+              icon: const Icon(
+                Icons.shopping_cart_outlined,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
+            backgroundColor: Colors.black38,
+            title: Text(title, textAlign: TextAlign.center),
           ),
-          backgroundColor: Colors.black38,
-          title: Text(title, textAlign: TextAlign.center),
-        ),
-        child = Image.network(
-          imageUrl,
-          fit: BoxFit.fill,
+          child = Image.network(
+            imageUrl,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
