@@ -16,7 +16,7 @@ class ProductItem extends StatelessWidget {
     return GridTile(
         footer: GridTileBar(
           trailing: IconButton(
-            iconSize: 5,
+            iconSize: 25,
             icon: const Icon(
               Icons.favorite_outline,
             ),
