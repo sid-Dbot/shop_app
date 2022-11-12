@@ -9,6 +9,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final productDetails = Provider.of<Products>(context).items;
     final productid = ModalRoute.of(context)!.settings.arguments as String;
+
     return Scaffold(
       appBar: AppBar(title: const Text('title')),
     );
