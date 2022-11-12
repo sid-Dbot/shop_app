@@ -6,7 +6,7 @@ import 'package:shop_app/widgets/product_item.dart';
 class ProductsOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<Products>(context).items;
+    final productData = Provider.of<Products>(context).items;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shop'),
