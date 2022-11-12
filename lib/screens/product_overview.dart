@@ -13,7 +13,7 @@ class ProductsOverviewScreen extends StatelessWidget {
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(7),
-        itemCount: savedProducts.length,
+        itemCount: productData.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
@@ -22,9 +22,9 @@ class ProductsOverviewScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return ProductItem(
-              id: savedProducts[index].id,
-              title: savedProducts[index].title,
-              imageUrl: savedProducts[index].imageUrl);
+              id: productData[index].id,
+              title: productData[index].title,
+              imageUrl: productData[index].imageUrl);
         },
       ),
     );
