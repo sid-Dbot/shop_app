@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/Models/product.dart';
 import 'package:shop_app/widgets/product_item.dart';
 
 class ProductsOverviewScreen extends StatelessWidget {
-  final List<Product> savedProducts = [];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
