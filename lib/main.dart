@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products_providers.dart';
 import 'package:shop_app/screens/product_details.dart';
 import 'package:shop_app/screens/product_overview.dart';
 
@@ -11,16 +13,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
-        iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
+    return ChangeNotifierProvider(
+      create: (context) => Products(),
+      child: MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+              primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
+          iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
+        ),
+        home: ProductsOverviewScreen(),
+        routes: {
+          ProductDetails.routename: (context) => ProductDetails(),
+        },
       ),
-      home: ProductsOverviewScreen(),
-      routes: {
-        ProductDetails.routename: (context) => ProductDetails(),
-      },
     );
   }
 }
