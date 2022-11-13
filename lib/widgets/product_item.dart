@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of(context);
+    final product = Provider.of(context).items;
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
