@@ -17,14 +17,12 @@ class ProductItem extends StatelessWidget {
         child: GridTile(
           footer: GridTileBar(
             trailing: IconButton(
-              iconSize: 20,
               icon: Icon((product.isFav == false)
                   ? Icons.favorite_outline
                   : Icons.favorite),
               onPressed: () {},
             ),
             leading: IconButton(
-              iconSize: 20,
               icon: const Icon(
                 Icons.shopping_cart_outlined,
               ),
