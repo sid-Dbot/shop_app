@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shop_app/screens/product_details.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
 
-  const ProductItem({
-    required this.id,
-    required this.title,
-    required this.imageUrl,
-  });
+  // const ProductItem({
+  //   required this.id,
+  //   required this.title,
+  //   required this.imageUrl,
+  // });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ProductItem extends StatelessWidget {
               onPressed: () {},
             ),
             backgroundColor: Colors.black38,
-            title: Text(title, textAlign: TextAlign.center),
+            title: Text(headline6, textAlign: TextAlign.center),
           ),
           child: Image.network(
             imageUrl,
