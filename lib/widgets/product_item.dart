@@ -20,12 +20,12 @@ class ProductItem extends StatelessWidget {
             .pushNamed(ProductDetails.routename, arguments: id);
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(10),
         child: GridTile(
           footer: GridTileBar(
             trailing: IconButton(
               iconSize: 20,
-              icon: const Icon(
+              icon:Icon((isFav==false)?
                 Icons.favorite_outline,
               ),
               onPressed: () {},
