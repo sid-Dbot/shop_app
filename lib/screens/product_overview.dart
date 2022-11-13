@@ -26,7 +26,8 @@ class ProductsOverviewScreen extends StatelessWidget {
             child: ProductItem(
                 // id: productData[index].id,
                 // title: productData[index].title,
-                // imageUrl: productData[index].imageUrl),
+                // imageUrl: productData[index].imageUrl
+                ),
           );
         },
       ),
