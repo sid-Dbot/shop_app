@@ -23,6 +23,7 @@ class ProductItem extends StatelessWidget {
               onPressed: () {},
             ),
             leading: IconButton(
+              color: Colors.blue[700],
               icon: const Icon(
                 Icons.shopping_cart_outlined,
               ),
