@@ -13,7 +13,7 @@ class ProductDetails extends StatelessWidget {
         .firstWhere((prod) => prod.id == productid);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('title')),
+      appBar: AppBar(title: Text(choosenProduct.title)),
     );
   }
 }
