@@ -20,16 +20,16 @@ class ProductItem extends StatelessWidget {
               color: Colors.blue[700],
               icon:
                   Icon(product.isFav ? Icons.favorite : Icons.favorite_outline),
-              onPressed: () {},
+              onPressed: () {
+                product.favoritetoggle();
+              },
             ),
             leading: IconButton(
               color: Colors.blue[700],
               icon: const Icon(
                 Icons.shopping_cart_outlined,
               ),
-              onPressed: () {
-                product.favoritetoggle();
-              },
+              onPressed: () {},
             ),
             backgroundColor: Colors.black54,
             title: Text(product.title, textAlign: TextAlign.center),
