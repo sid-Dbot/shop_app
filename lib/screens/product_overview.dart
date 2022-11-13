@@ -21,10 +21,13 @@ class ProductsOverviewScreen extends StatelessWidget {
           crossAxisSpacing: 7,
         ),
         itemBuilder: (context, index) {
-          return ProductItem(
-              id: productData[index].id,
-              title: productData[index].title,
-              imageUrl: productData[index].imageUrl);
+          return ChangeNotifierProvider(
+            create: (context) => productData[index],
+            child: ProductItem(
+                id: productData[index].id,
+                title: productData[index].title,
+                imageUrl: productData[index].imageUrl),
+          );
         },
       ),
     );
