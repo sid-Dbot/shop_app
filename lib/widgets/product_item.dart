@@ -17,9 +17,8 @@ class ProductItem extends StatelessWidget {
         child: GridTile(
           footer: GridTileBar(
             trailing: IconButton(
-              icon: Icon((product.isFav == false)
-                  ? Icons.favorite_outline
-                  : Icons.favorite),
+              icon:
+                  Icon(product.isFav ? Icons.favorite_outline : Icons.favorite),
               onPressed: () {},
             ),
             leading: IconButton(
