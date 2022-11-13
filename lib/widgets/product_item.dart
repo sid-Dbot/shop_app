@@ -28,7 +28,9 @@ class ProductItem extends StatelessWidget {
               icon: const Icon(
                 Icons.shopping_cart_outlined,
               ),
-              onPressed: () {},
+              onPressed: () {
+                product.favoritetoggle();
+              },
             ),
             backgroundColor: Colors.black38,
             title: Text(product.title, textAlign: TextAlign.center),
