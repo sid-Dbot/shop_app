@@ -31,7 +31,7 @@ class ProductItem extends StatelessWidget {
                 product.favoritetoggle();
               },
             ),
-            backgroundColor: Colors.black38,
+            backgroundColor: Colors.black54,
             title: Text(product.title, textAlign: TextAlign.center),
           ),
           child: Image.network(
