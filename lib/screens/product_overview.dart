@@ -24,9 +24,9 @@ class ProductsOverviewScreen extends StatelessWidget {
           return ChangeNotifierProvider(
             create: (context) => productData[index],
             child: ProductItem(
-                id: productData[index].id,
-                title: productData[index].title,
-                imageUrl: productData[index].imageUrl),
+                // id: productData[index].id,
+                // title: productData[index].title,
+                // imageUrl: productData[index].imageUrl),
           );
         },
       ),
