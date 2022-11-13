@@ -18,5 +18,6 @@ class Product with ChangeNotifier {
   });
   void favoritetoggle() {
     isFav = !isFav;
+    notifyListeners();
   }
 }
