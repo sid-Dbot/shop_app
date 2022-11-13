@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product=Provider.of(context);
+    final product = Provider.of(context);
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
@@ -27,9 +27,9 @@ class ProductItem extends StatelessWidget {
           footer: GridTileBar(
             trailing: IconButton(
               iconSize: 20,
-              icon:Icon((isFav==false)?
-                Icons.favorite_outline,
-              ),
+              icon: Icon((product.isFav == false)
+                  ? Icons.favorite_outline
+                  : Icons.favorite),
               onPressed: () {},
             ),
             leading: IconButton(
@@ -40,10 +40,10 @@ class ProductItem extends StatelessWidget {
               onPressed: () {},
             ),
             backgroundColor: Colors.black38,
-            title: Text(headline6, textAlign: TextAlign.center),
+            title: Text(product.title, textAlign: TextAlign.center),
           ),
           child: Image.network(
-            imageUrl,
+            product.imageUrl,
             fit: BoxFit.fill,
           ),
         ),
