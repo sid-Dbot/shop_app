@@ -4,16 +4,6 @@ import 'package:shop_app/Models/product.dart';
 import 'package:shop_app/screens/product_details.dart';
 
 class ProductItem extends StatelessWidget {
-  // final String id;
-  // final String title;
-  // final String imageUrl;
-
-  // const ProductItem({
-  //   required this.id,
-  //   required this.title,
-  //   required this.imageUrl,
-  // });
-
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
