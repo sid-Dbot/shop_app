@@ -6,7 +6,7 @@ class Product with ChangeNotifier{
   final String description;
   final double price;
   final String imageUrl;
-  bool? isFav;
+  bool isFav;
 
   Product({
     required this.id,
@@ -16,7 +16,7 @@ class Product with ChangeNotifier{
     required this.imageUrl,
     this.isFav=false,
   });
-  void favoratestoggle{
+  void favoritetoggle{
     isFav=!isFav;
   }
 }
