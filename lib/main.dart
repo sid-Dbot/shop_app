@@ -17,6 +17,7 @@ class MainApp extends StatelessWidget {
       create: (context) => Products(),
       child: MaterialApp(
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.deepOrange[100],
           colorScheme: ColorScheme.fromSwatch(
               primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
           iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),

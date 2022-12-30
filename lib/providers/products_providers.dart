@@ -14,11 +14,18 @@ class Products with ChangeNotifier {
     ),
     Product(
         id: 'p2',
-        title: 'Fishing Net',
-        description: 'Used for fishing. Applicable in large water bodies.',
+        title: 'Net',
+        description: 'Net used for fishing',
         price: 2.3,
         imageUrl:
-            'https://img.freepik.com/free-photo/fishing-nets_181624-31810.jpg?size=626&ext=jpg'),
+            'https://m.media-amazon.com/images/W/WEBP_402378-T1/images/I/71B5V1IUZLL._AC_UL320_.jpg'),
+    Product(
+        id: 'p3',
+        title: 'Pen',
+        description: "Writing Pen",
+        price: 4.5,
+        imageUrl:
+            'https://images.thepencompany.com/3/nodes/810732.jpg?width=600&height=600&strategy=a')
   ];
 
   List<Product> get items {

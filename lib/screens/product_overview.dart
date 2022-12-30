@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shop_app/providers/products_providers.dart';
 import 'package:shop_app/widgets/product_item.dart';
 
+import '../Models/product.dart';
+
 class ProductsOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,21 +13,23 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Shop'),
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(7),
-        itemCount: productData.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          mainAxisSpacing: 7,
-          crossAxisSpacing: 7,
+      body: Consumer<Products>(
+        builder: (context, value, child) => GridView.builder(
+          padding: const EdgeInsets.all(7),
+          itemCount: value.items.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 5 / 4,
+            mainAxisSpacing: 7,
+            crossAxisSpacing: 7,
+          ),
+          itemBuilder: (context, index) {
+            return ChangeNotifierProvider(
+              create: (context) => productData[index],
+              child: ProductItem(),
+            );
+          },
         ),
-        itemBuilder: (context, index) {
-          return ChangeNotifierProvider(
-            create: (context) => productData[index],
-            child: ProductItem(),
-          );
-        },
       ),
     );
   }
