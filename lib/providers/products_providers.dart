@@ -28,9 +28,28 @@ class Products with ChangeNotifier {
             'https://images.thepencompany.com/3/nodes/810732.jpg?width=600&height=600&strategy=a')
   ];
 
+  //bool showFavoritesOnly = false;
+
   List<Product> get items {
+    // if (showFavoritesOnly) {
+    //   return _items.where((e) => e.isFav).toList();
+    // }
     return [..._items];
   }
+
+  List<Product> get favOnly {
+    return _items.where((element) => element.isFav).toList();
+  }
+
+  // void toggleFavoritesOption() {
+  //   showFavoritesOnly = true;
+  //   notifyListeners();
+  // }
+
+  // void toggleAllsOption() {
+  //   showFavoritesOnly = false;
+  //   notifyListeners();
+  // }
 
   Product findbyid(String id) {
     return items.firstWhere((prod) => prod.id == id);
