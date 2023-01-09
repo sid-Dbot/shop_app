@@ -27,6 +27,8 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: value.items.length,
                     itemBuilder: (context, index) {
                       return CartItem(
                           id: value.items[index]!.id,
