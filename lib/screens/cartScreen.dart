@@ -25,17 +25,19 @@ class CartScreen extends StatelessWidget {
                       BorderSide(color: Colors.black),
                     ),
                   ),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: value.itemCount,
-                    itemBuilder: (context, index) {
-                      return CartItem(
-                          id: value.items.values.toList()[index].id,
-                          title: value.items.values.toList()[index].name,
-                          price: value.items.values.toList()[index].price,
-                          quantity:
-                              value.items.values.toList()[index].quantity);
-                    },
+                  child: Expanded(
+                    child: ListView.builder(
+                      // shrinkWrap: true,
+                      itemCount: value.itemCount,
+                      itemBuilder: (context, index) {
+                        return CartItem(
+                            id: value.items.values.toList()[index].id,
+                            title: value.items.values.toList()[index].name,
+                            price: value.items.values.toList()[index].price,
+                            quantity:
+                                value.items.values.toList()[index].quantity);
+                      },
+                    ),
                   ),
                 ),
                 Container(
