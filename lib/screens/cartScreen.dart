@@ -19,7 +19,6 @@ class CartScreen extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  //color: Colors.black,
                   height: MediaQuery.of(context).size.height * 0.65,
                   decoration: BoxDecoration(
                     border: Border.fromBorderSide(
@@ -28,7 +27,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   child: ListView.builder(
                     shrinkWrap: true,
-                    itemCount: value.items.length,
+                    itemCount: value.itemCount,
                     itemBuilder: (context, index) {
                       return CartItem(
                           id: value.items.values.toList()[index].id,
