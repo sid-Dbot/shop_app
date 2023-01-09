@@ -15,13 +15,16 @@ class CartItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title),
-      subtitle: Text('x $quantity'),
-      trailing: Row(children: [
-        Text('$price'),
-        IconButton(onPressed: () {}, icon: Icon(Icons.delete))
-      ]),
+    return Card(
+      elevation: 11,
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text('x $quantity'),
+        trailing: Row(children: [
+          Text('$price'),
+          IconButton(onPressed: () {}, icon: Icon(Icons.delete))
+        ]),
+      ),
     );
   }
 }
