@@ -24,6 +24,7 @@ class MainApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.deepOrange[100],
           colorScheme: ColorScheme.fromSwatch(
