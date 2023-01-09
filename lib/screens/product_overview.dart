@@ -8,6 +8,7 @@ import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/product_item.dart';
 
 import '../Models/product.dart';
+import 'cartScreen.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -52,7 +53,25 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             return Badge(
               child: IconButton(
                 icon: Icon(Icons.shopping_cart),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return CartScreen();
+                    },
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1, 0);
+                      const end = Offset.zero;
+                      final tween = Tween(begin: begin, end: end);
+                      final animations = animation.drive(tween);
+
+                      return SlideTransition(
+                        position: animations,
+                        child: child,
+                      );
+                    },
+                  ));
+                },
               ),
               value: value.itemCount.toString(),
             );

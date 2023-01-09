@@ -18,6 +18,10 @@ class CartItem {
 
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items = {};
+  // List get items {
+  //   return [..._items];
+  // }
+
   int get itemCount {
     return _items.length;
   }
