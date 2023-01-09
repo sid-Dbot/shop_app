@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/providers/cart.dart';
+import 'package:shop_app/providers/cart.dart' show Cart;
+
+import '../widgets/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -23,6 +25,15 @@ class CartScreen extends StatelessWidget {
                     border: Border.fromBorderSide(
                       BorderSide(color: Colors.black),
                     ),
+                  ),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return CartItem(
+                          id: value.items[index]!.id,
+                          title: value.items[index]!.name,
+                          price: value.items[index]!.price,
+                          quantity: value.items[index]!.quantity);
+                    },
                   ),
                 ),
                 Container(
