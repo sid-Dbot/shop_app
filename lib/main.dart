@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.deepOrange[100],
           colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: Colors.blueGrey, accentColor: Colors.amber),
+              primarySwatch: Colors.blueGrey, accentColor: Colors.amber[700]),
           iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
         ),
         home: ProductsOverviewScreen(),
