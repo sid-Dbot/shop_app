@@ -18,6 +18,15 @@ class CartScreen extends StatelessWidget {
           child: Consumer<Cart>(builder: (context, value, child) {
             return Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('S.No'),
+                    Text('Product'),
+                    Text('Quantity'),
+                    Text('Price'),
+                  ],
+                ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.65,
                   decoration: BoxDecoration(
@@ -25,19 +34,30 @@ class CartScreen extends StatelessWidget {
                       BorderSide(color: Colors.black),
                     ),
                   ),
-                  child: Expanded(
-                    child: ListView.builder(
-                      // shrinkWrap: true,
-                      itemCount: value.itemCount,
-                      itemBuilder: (context, index) {
-                        return CartItem(
-                            id: value.items.values.toList()[index].id,
-                            title: value.items.values.toList()[index].name,
-                            price: value.items.values.toList()[index].price,
-                            quantity:
-                                value.items.values.toList()[index].quantity);
-                      },
-                    ),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: value.itemCount,
+                    itemBuilder: (context, index) {
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text('${index + 1}'),
+                            Expanded(
+                              child: CartItem(
+                                  id: value.items.values.toList()[index].id,
+                                  title:
+                                      value.items.values.toList()[index].name,
+                                  price:
+                                      value.items.values.toList()[index].price *
+                                          value.items.values
+                                              .toList()[index]
+                                              .quantity,
+                                  quantity: value.items.values
+                                      .toList()[index]
+                                      .quantity),
+                            ),
+                          ]);
+                    },
                   ),
                 ),
                 Container(
