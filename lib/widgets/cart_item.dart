@@ -30,7 +30,9 @@ class CartItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
-      onDismissed: (direction) {},
+      onDismissed: (direction) {
+        Provider.of<Cart>(context).removeItem(id);
+      },
       child: Card(
         elevation: 9,
         color: Theme.of(context).scaffoldBackgroundColor,
