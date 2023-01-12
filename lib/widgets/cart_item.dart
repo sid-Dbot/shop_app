@@ -24,45 +24,36 @@ class CartItem extends StatelessWidget {
         child: Icon(
           Icons.delete,
           color: Colors.white,
+          size: 40,
         ),
       ),
       direction: DismissDirection.endToStart,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          // width: double.infinity,
-          decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 2,
-                  spreadRadius: 1,
-                  offset: Offset(2, 4),
-                )
-              ],
-              borderRadius: BorderRadius.circular(12),
-              color: Theme.of(context).colorScheme.primary),
-          child: Padding(
+      child: Card(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Text(
-                    'x $quantity',
-                    style: TextStyle(fontSize: 25),
-                  ),
-                  Row(children: [
-                    Text(
-                      '$price',
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ]),
-                ]),
-          ),
-        ),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                child: Text(
+                  '$price',
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+              title: Text(
+                title,
+                style: TextStyle(fontSize: 25),
+              ),
+              subtitle: Text(
+                'x $quantity',
+                style: TextStyle(fontSize: 25),
+              ),
+              trailing: Text(
+                'Total: ${price * quantity}',
+                style: TextStyle(fontSize: 25),
+              ),
+            )),
       ),
     );
   }
