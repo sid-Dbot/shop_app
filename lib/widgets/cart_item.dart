@@ -29,16 +29,17 @@ class CartItem extends StatelessWidget {
       ),
       direction: DismissDirection.endToStart,
       child: Card(
+        elevation: 9,
         color: Theme.of(context).scaffoldBackgroundColor,
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListTile(
               leading: CircleAvatar(
+                radius: 40,
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 child: Text(
-                  '$price',
-                  style: TextStyle(fontSize: 25),
+                  '\$$price',
+                  style: TextStyle(fontSize: 20),
                 ),
               ),
               title: Text(

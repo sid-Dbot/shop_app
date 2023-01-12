@@ -18,15 +18,15 @@ class CartScreen extends StatelessWidget {
           child: Consumer<Cart>(builder: (context, value, child) {
             return Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text('S.No'),
-                    Text('Product'),
-                    Text('Quantity'),
-                    Text('Price'),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //   children: [
+                //     Text('S.No'),
+                //     Text('Product'),
+                //     Text('Quantity'),
+                //     Text('Price'),
+                //   ],
+                // ),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.65,
                   decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class CartScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          'Total :',
+                          'Grand Total :',
                           style: TextStyle(fontSize: 25),
                         ),
                         Text(
