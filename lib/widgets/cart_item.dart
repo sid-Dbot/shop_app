@@ -17,6 +17,16 @@ class CartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(id),
+      background: Container(
+        color: Colors.red,
+        padding: EdgeInsets.all(8),
+        alignment: Alignment.centerRight,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
+      direction: DismissDirection.endToStart,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -31,15 +41,27 @@ class CartItem extends StatelessWidget {
               ],
               borderRadius: BorderRadius.circular(12),
               color: Theme.of(context).colorScheme.primary),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text(title),
-            Text('x $quantity'),
-            Row(children: [
-              Text('$price'),
-              IconButton(onPressed: () {}, icon: Icon(Icons.delete))
-            ]),
-          ]),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Text(
+                    'x $quantity',
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  Row(children: [
+                    Text(
+                      '$price',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ]),
+                ]),
+          ),
         ),
       ),
     );
