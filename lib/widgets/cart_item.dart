@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/screens/product_details.dart';
 
 import '../providers/cart.dart';
 
@@ -33,33 +34,38 @@ class CartItem extends StatelessWidget {
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(id);
       },
-      child: Card(
-        elevation: 9,
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 40,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                child: Text(
-                  '\$$price',
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed('/product_details', arguments: id);
+        },
+        child: Card(
+          elevation: 9,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  child: Text(
+                    '\$$price',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+                title: Text(
+                  title,
+                  style: TextStyle(fontSize: 25),
+                ),
+                subtitle: Text(
+                  'x $quantity',
                   style: TextStyle(fontSize: 20),
                 ),
-              ),
-              title: Text(
-                title,
-                style: TextStyle(fontSize: 25),
-              ),
-              subtitle: Text(
-                'x $quantity',
-                style: TextStyle(fontSize: 20),
-              ),
-              trailing: Text(
-                'Total:\$${price * quantity}',
-                style: TextStyle(fontSize: 20),
-              ),
-            )),
+                trailing: Text(
+                  'Total:\$${price * quantity}',
+                  style: TextStyle(fontSize: 20),
+                ),
+              )),
+        ),
       ),
     );
   }

@@ -12,7 +12,7 @@ class ProductItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(ProductDetails.routename, arguments: product.id);
+            .pushNamed('/product_details', arguments: product.id);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
