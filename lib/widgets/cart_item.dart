@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/providers/cart.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/cart.dart';
 
 class CartItem extends StatelessWidget {
   String title;
@@ -28,6 +30,7 @@ class CartItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
+      onDismissed: (direction) {},
       child: Card(
         elevation: 9,
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -48,11 +51,11 @@ class CartItem extends StatelessWidget {
               ),
               subtitle: Text(
                 'x $quantity',
-                style: TextStyle(fontSize: 25),
+                style: TextStyle(fontSize: 20),
               ),
               trailing: Text(
-                'Total: ${price * quantity}',
-                style: TextStyle(fontSize: 25),
+                'Total:\$${price * quantity}',
+                style: TextStyle(fontSize: 20),
               ),
             )),
       ),
