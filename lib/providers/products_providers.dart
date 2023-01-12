@@ -7,7 +7,7 @@ class Products with ChangeNotifier {
     Product(
       id: 'p1',
       title: 'Hammer',
-      description: "A tool use to smash things.",
+      description: "A tool that can smash anything.",
       price: 0.99,
       imageUrl:
           'https://www.shutterstock.com/image-photo/close-orange-iron-hammer-medium-260nw-1937103445.jpg',

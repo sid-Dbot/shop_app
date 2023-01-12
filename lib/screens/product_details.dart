@@ -12,6 +12,20 @@ class ProductDetails extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(choosenProduct.title)),
+      body: Column(children: [
+        Container(
+          height: 300,
+          child: Card(
+            child: Image.network(choosenProduct.imageUrl),
+            elevation: 9,
+          ),
+        ),
+        Text(
+          '\$${choosenProduct.price}',
+          style: TextStyle(fontSize: 25),
+        ),
+        Text(choosenProduct.description)
+      ]),
     );
   }
 }
