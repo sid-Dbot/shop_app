@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
         ),
         home: ProductsOverviewScreen(),
         routes: {
-          ProductDetails.routename: (context) => ProductDetails(),
+          '/product_details': (context) => ProductDetails(),
         },
       ),
     );
