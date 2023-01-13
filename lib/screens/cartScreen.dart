@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart.dart' show Cart;
+import 'package:shop_app/providers/orders.dart';
 
 import '../widgets/cart_item.dart';
 
@@ -70,7 +71,14 @@ class CartScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 7, bottom: 7),
                   child: GestureDetector(
-                    onTap: (() {}),
+                    onTap: (() {
+                      value.clearCart();
+                      Provider.of<OrdersList>(context).addOrder(
+                          DateTime.now().toString(),
+                          value.items.values.toList(),
+                          DateTime.now(),
+                          value.totalAmt);
+                    }),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
