@@ -51,9 +51,13 @@ class _OrdersScreenState extends State<OrdersScreen> {
                           children: [
                             Text(
                               items.name,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
                             ),
-                            Text('x${items.quantity}')
+                            Text(
+                              'x${items.quantity}',
+                              style: TextStyle(fontSize: 17),
+                            )
                           ],
                         );
                       }).toList())),
