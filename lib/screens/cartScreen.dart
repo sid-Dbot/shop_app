@@ -72,12 +72,12 @@ class CartScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 7, bottom: 7),
                   child: GestureDetector(
                     onTap: (() {
-                      value.clearCart();
                       Provider.of<OrdersList>(context, listen: false).addOrder(
                           DateTime.now().toString(),
                           value.items.values.toList(),
                           DateTime.now(),
                           value.totalAmt);
+                      value.clearCart();
                     }),
                     child: Container(
                       width: double.infinity,

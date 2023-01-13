@@ -4,8 +4,7 @@ import 'package:shop_app/providers/orders.dart';
 import 'package:intl/intl.dart';
 
 class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
-
+  var _expand = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,8 @@ class OrdersScreen extends StatelessWidget {
                       .add_jm()
                       .format(value.orders[index].orderDate)
                       .toString()),
-                  title: Text('Order ${index + 1}'),
+                  title: Text('\$ ${value.orders[index].total}'),
+                  subtitle: Text('Order ${index + 1}'),
                   trailing: Icon(Icons.arrow_drop_down),
                 ));
           },
