@@ -16,7 +16,7 @@ class Order {
   });
 }
 
-class OrdersList {
+class OrdersList with ChangeNotifier {
   List<Order> _orders = [];
   List<Order> get orders {
     return [..._orders];
@@ -25,5 +25,6 @@ class OrdersList {
   void addOrder(String id, List<CartItem> cart, DateTime date, double total) {
     _orders.insert(
         0, Order(orderID: id, cartList: cart, total: total, orderDate: date));
+    notifyListeners();
   }
 }
