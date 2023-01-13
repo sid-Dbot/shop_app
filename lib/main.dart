@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/orders.dart';
@@ -33,11 +35,14 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.deepOrange[100],
-          colorScheme: ColorScheme.fromSwatch(
-              primarySwatch: Colors.blueGrey, accentColor: Colors.amber[800]),
-          iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
-        ),
+            scaffoldBackgroundColor: Colors.deepOrange[100],
+            colorScheme: ColorScheme.fromSwatch(
+                primarySwatch: Colors.blueGrey, accentColor: Colors.amber[800]),
+            iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
+            textTheme: TextTheme(
+              subtitle1: TextStyle(fontSize: 25),
+              bodyText2: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            )),
         home: ProductsOverviewScreen(),
         routes: {
           '/product_details': (context) => ProductDetails(),
