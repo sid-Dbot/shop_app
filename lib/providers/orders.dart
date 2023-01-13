@@ -8,11 +8,12 @@ class Order {
   final DateTime orderDate;
   double total;
 
-  Order(
-      {required this.orderID,
-      required this.cartList,
-      required this.total,
-      required this.orderDate});
+  Order({
+    required this.orderID,
+    required this.cartList,
+    required this.total,
+    required this.orderDate,
+  });
 }
 
 class OrdersList {
