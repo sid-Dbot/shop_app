@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/orders.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class OrdersScreen extends StatefulWidget {
   @override
@@ -41,9 +42,21 @@ class _OrdersScreenState extends State<OrdersScreen> {
                     )),
                 if (_expand)
                   Container(
-                    height: 200,
-                    child: ListView(children: []),
-                  )
+                      height: min(
+                          value.orders[index].cartList.length * 20.0 + 50, 100),
+                      child: ListView(
+                          children: value.orders[index].cartList.map((items) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              items.name,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text('x${items.quantity}')
+                          ],
+                        );
+                      }).toList())),
               ],
             );
           },
