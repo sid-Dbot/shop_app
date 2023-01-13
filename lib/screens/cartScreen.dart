@@ -73,7 +73,7 @@ class CartScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: (() {
                       value.clearCart();
-                      Provider.of<OrdersList>(context).addOrder(
+                      Provider.of<OrdersList>(context, listen: false).addOrder(
                           DateTime.now().toString(),
                           value.items.values.toList(),
                           DateTime.now(),
