@@ -23,8 +23,8 @@ class OrdersList with ChangeNotifier {
   }
 
   void addOrder(String id, List<CartItem> cart, DateTime date, double total) {
-    _orders.insert(
-        0, Order(orderID: id, cartList: cart, total: total, orderDate: date));
+    _orders
+        .add(Order(orderID: id, cartList: cart, total: total, orderDate: date));
     notifyListeners();
   }
 }
