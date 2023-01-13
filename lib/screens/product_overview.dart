@@ -94,6 +94,34 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           );
         },
       ),
+      drawer: Drawer(
+          child: Column(
+        children: [
+          DrawerHeader(
+              child: CircleAvatar(
+            radius: 100,
+            child: Icon(
+              Icons.person,
+              size: 100,
+            ),
+          )),
+          GestureDetector(
+            onTap: (() {
+              Navigator.of(context).pushNamed('/orders');
+            }),
+            child: Card(
+              elevation: 7,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Orders',
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+            ),
+          )
+        ],
+      )),
     );
   }
 }

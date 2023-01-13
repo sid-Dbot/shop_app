@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/orders.dart';
+import 'package:shop_app/screens/ordersScreen.dart';
 
 import './providers/cart.dart';
 import './providers/products_providers.dart';
@@ -40,6 +41,7 @@ class MainApp extends StatelessWidget {
         home: ProductsOverviewScreen(),
         routes: {
           '/product_details': (context) => ProductDetails(),
+          '/orders': (context) => OrdersScreen(),
         },
       ),
     );
