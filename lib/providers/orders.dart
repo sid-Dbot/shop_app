@@ -14,3 +14,10 @@ class Order {
       required this.total,
       required this.orderDate});
 }
+
+class OrdersList {
+  List _orders = [];
+  List get orders {
+    return [..._orders];
+  }
+}
