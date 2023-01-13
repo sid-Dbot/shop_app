@@ -60,7 +60,7 @@ class CartScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 25),
                         ),
                         Text(
-                          '\$ ${value.totalAmt} ',
+                          '\$ ${value.totalAmt.toStringAsFixed(2)}',
                           style: TextStyle(fontSize: 25),
                         )
                       ],
