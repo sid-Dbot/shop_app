@@ -17,8 +17,8 @@ class Order {
 }
 
 class OrdersList {
-  List _orders = [];
-  List get orders {
+  List<Order> _orders = [];
+  List<Order> get orders {
     return [..._orders];
   }
 }
