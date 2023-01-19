@@ -55,6 +55,7 @@ class ItemForm extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {
                     var data = Product(
+                        id: DateTime.now().toString(),
                         title: nameController.text,
                         description: descController.text,
                         price: double.parse(priceCtrllr.text),
