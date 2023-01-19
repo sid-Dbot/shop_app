@@ -72,7 +72,7 @@ class Products with ChangeNotifier {
             }))
         .then((val) {
       _items.add(Product(
-          id: val.body,
+          id: val.body.toString(),
           title: product.title,
           description: product.description,
           price: product.price,
