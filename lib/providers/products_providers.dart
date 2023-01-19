@@ -58,26 +58,27 @@ class Products with ChangeNotifier {
     return items.firstWhere((prod) => prod.id == id);
   }
 
-  addProduct(Product product) async {
+  Future<void> addProduct(Product product) async {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
-    http.post(Uri.parse(url),
-        body: json.encode({
-          'Name': product.title,
-          'Desc.': product.description,
-          'Price': product.price,
-          'ImageUrl': product.imageUrl,
-          'favorites': product.isFav,
-        }));
-    // .then((value) => print(value.body));
-    //     .then((val) {
-    //   _items.add(Product(
-    //       id: val.body,
-    //       title: product.title,
-    //       description: product.description,
-    //       price: product.price,
-    //       imageUrl: product.imageUrl));
-    // });
+    http
+        .post(Uri.parse(url),
+            body: json.encode({
+              'Name': product.title,
+              'Desc.': product.description,
+              'Price': product.price,
+              'ImageUrl': product.imageUrl,
+              'favorites': product.isFav,
+            }))
+        .then((val) {
+      _items.add(Product(
+          id: val.body,
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl));
+      notifyListeners();
+    });
 
     notifyListeners();
   }
