@@ -121,7 +121,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             ),
           ), GestureDetector(
             onTap: (() {
-              Navigator.of(context).pushNamed('/add_product');
+              Navigator.of(context).pushNamed('/add_Product');
             }),
             child: Card(
               elevation: 7,
