@@ -61,16 +61,23 @@ class Products with ChangeNotifier {
   void addProduct(Product product) {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
-    http.post(Uri.parse(url),
-        body: json.encode({
-          'Name': product.title,
-          'Desc.': product.description,
-          'Price': product.price,
-          'ImageUrl': product.imageUrl,
-          'favorites': product.isFav,
-        }));
-
-    _items.add(product);
+    http
+        .post(Uri.parse(url),
+            body: json.encode({
+              'Name': product.title,
+              'Desc.': product.description,
+              'Price': product.price,
+              'ImageUrl': product.imageUrl,
+              'favorites': product.isFav,
+            }))
+        .then((val) {
+      _items.add(Product(
+          id: val.body,
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl));
+    });
 
     notifyListeners();
   }
