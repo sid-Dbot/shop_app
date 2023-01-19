@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/products_providers.dart';
 
 class ItemForm extends StatelessWidget {
   List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
@@ -21,6 +23,7 @@ class ItemForm extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
+    final post = context.read<Products>();
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
       body: ListView(
@@ -56,6 +59,12 @@ class ItemForm extends StatelessWidget {
                       'imgUrl': urlController.text,
                     };
                     print(data);
+                    post.addProduct(
+                        DateTime.now().toString(),
+                        nameController.text,
+                        descController.text,
+                        double.parse(priceCtrllr.text),
+                        urlController.text);
                   },
                   child: Text('Submit'))
             ],
