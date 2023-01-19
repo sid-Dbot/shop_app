@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 class ItemForm extends StatelessWidget {
   List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
-  var textEditingControllers = [
-    'nameController',
-    'descController',
-    'priceCtrllr',
-    'urlCtrllr'
+  static TextEditingController nameController = TextEditingController();
+  static TextEditingController descController = TextEditingController();
+  static TextEditingController priceCtrllr = TextEditingController();
+  static TextEditingController urlController = TextEditingController();
+
+  List<TextEditingController> controllers = [
+    nameController,
+    descController,
+    priceCtrllr,
+    urlController,
   ];
 
   @override
@@ -20,6 +25,7 @@ class ItemForm extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              controller: controllers[index],
               decoration: InputDecoration(
                   hintText:
                       'Enter ${titles[index].toString().toLowerCase()} for Product',
