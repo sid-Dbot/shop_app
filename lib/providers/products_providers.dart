@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 import '../Models/product.dart';
 
@@ -56,7 +59,17 @@ class Products with ChangeNotifier {
   }
 
   void addProduct(Product product) {
-    const url = 'https://fir-shop-c3476-default-rtdb.firebaseio.com/';
+    const url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
+    http.post(Uri.parse(url),
+        body: json.encode({
+          'Name': product.title,
+          'Desc.': product.description,
+          'Price': product.price,
+          'ImageUrl': product.imageUrl,
+          'favorites': product.isFav,
+        }));
+
     _items.add(product);
 
     notifyListeners();

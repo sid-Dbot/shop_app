@@ -16,7 +16,7 @@ class ProductDetails extends StatelessWidget {
         Container(
           height: 300,
           child: Card(
-            child: Image.network(choosenProduct.imageUrl),
+            child: Center(child: Image.network(choosenProduct.imageUrl)),
             elevation: 9,
           ),
         ),

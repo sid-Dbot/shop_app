@@ -24,8 +24,8 @@ class ItemForm extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
-    final post = context.read<Products>();
-    final type = Provider.of<Product>(context);
+    final post = Provider.of<Products>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
       body: ListView(
@@ -62,7 +62,7 @@ class ItemForm extends StatelessWidget {
                         imageUrl: urlController.text);
                     // print(data);
                     post.addProduct(data);
-                    Navigator.pop(context);
+                    Navigator.of(context).pop();
                   },
                   child: Text('Submit'))
             ],
