@@ -119,6 +119,20 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 ),
               ),
             ),
+          ), GestureDetector(
+            onTap: (() {
+              Navigator.of(context).pushNamed('/add_product');
+            }),
+            child: Card(
+              elevation: 7,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Add Product',
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+            ),
           )
         ],
       )),
