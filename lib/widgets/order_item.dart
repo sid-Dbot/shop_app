@@ -28,7 +28,8 @@ class _OrderItemState extends State<OrderItem> {
                       .add_jm()
                       .format(value.orders[widget.index].orderDate)
                       .toString()),
-                  title: Text('\$ ${value.orders[widget.index].total}'),
+                  title: Text(
+                      '\$ ${value.orders[widget.index].total.toStringAsFixed(2)}'),
                   subtitle: Text('Order ${widget.index + 1}'),
                   trailing: IconButton(
                     icon: Icon(Icons.arrow_drop_down),
