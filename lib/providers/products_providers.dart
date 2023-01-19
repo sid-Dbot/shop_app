@@ -55,14 +55,10 @@ class Products with ChangeNotifier {
     return items.firstWhere((prod) => prod.id == id);
   }
 
-  void addProduct(
-      String id, String title, String desc, double price, String imgUrl) {
-    _items.add(Product(
-        id: id,
-        title: title,
-        description: desc,
-        price: price,
-        imageUrl: imgUrl));
+  void addProduct(Product product) {
+    const url = 'https://fir-shop-c3476-default-rtdb.firebaseio.com/';
+    _items.add(product);
+
     notifyListeners();
   }
 }

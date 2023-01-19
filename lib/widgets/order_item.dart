@@ -59,7 +59,7 @@ class _OrderItemState extends State<OrderItem> {
                           style: TextStyle(fontWeight: FontWeight.normal),
                         ),
                         Text(
-                          '\$ ${items.price * items.quantity}',
+                          '\$ ${(items.price * items.quantity).toStringAsFixed(2)}',
                         )
                       ],
                     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/Models/product.dart';
 import 'package:shop_app/providers/products_providers.dart';
 
 class ItemForm extends StatelessWidget {
@@ -24,6 +25,7 @@ class ItemForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final post = context.read<Products>();
+    final type = Provider.of<Product>(context);
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
       body: ListView(
@@ -52,19 +54,14 @@ class ItemForm extends StatelessWidget {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    var data = {
-                      'name': nameController.text,
-                      'desc': descController.text,
-                      'price': priceCtrllr.text,
-                      'imgUrl': urlController.text,
-                    };
-                    print(data);
-                    post.addProduct(
-                        DateTime.now().toString(),
-                        nameController.text,
-                        descController.text,
-                        double.parse(priceCtrllr.text),
-                        urlController.text);
+                    var data = Product(
+                        title: nameController.text,
+                        description: descController.text,
+                        price: double.parse(priceCtrllr.text),
+                        imageUrl: urlController.text);
+                    // print(data);
+                    post.addProduct(data);
+                    Navigator.pop(context);
                   },
                   child: Text('Submit'))
             ],
