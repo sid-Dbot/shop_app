@@ -12,7 +12,14 @@ class ItemForm extends StatelessWidget {
       body: ListView.builder(
         itemCount: titles.values.length,
         itemBuilder: (context, index) {
-          return TextField();
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                  hintText: titles.values[index].toString(),
+                  label: Text('${titles.values[index]}')),
+            ),
+          );
         },
       ),
     );
