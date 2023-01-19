@@ -16,12 +16,7 @@ class ItemForm extends StatelessWidget {
     priceCtrllr,
     urlController,
   ];
-  var data = {
-    'name': nameController.text,
-    'desc': descController.text,
-    'price': priceCtrllr.text,
-    'imgUrl': urlController.text,
-  };
+
   @override
   Widget build(BuildContext context) {
     final post = Provider.of<Products>(context, listen: false);
