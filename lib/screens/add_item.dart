@@ -40,7 +40,6 @@ class _ItemFormState extends State<ItemForm> {
                   shrinkWrap: true,
                   itemCount: titles.length,
                   itemBuilder: (context, index) {
-                    final String name;
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextField(
