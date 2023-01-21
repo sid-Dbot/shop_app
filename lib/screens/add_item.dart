@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/Models/product.dart';
 import 'package:shop_app/providers/products_providers.dart';
 
-class ItemForm extends StatelessWidget {
-  List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
+class ItemForm extends StatefulWidget {
   static TextEditingController nameController = TextEditingController();
   static TextEditingController descController = TextEditingController();
   static TextEditingController priceCtrllr = TextEditingController();
   static TextEditingController urlController = TextEditingController();
 
+  @override
+  State<ItemForm> createState() => _ItemFormState();
+}
+
+class _ItemFormState extends State<ItemForm> {
+  List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
+
+  final loading = false;
+
   List<TextEditingController> controllers = [
-    nameController,
-    descController,
-    priceCtrllr,
-    urlController,
+    ItemForm.nameController,
+    ItemForm.descController,
+    ItemForm.priceCtrllr,
+    ItemForm.urlController,
   ];
 
   @override
@@ -23,47 +32,58 @@ class ItemForm extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
-      body: ListView(
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: titles.length,
-            itemBuilder: (context, index) {
-              final String name;
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: controllers[index],
-                  decoration: InputDecoration(
-                      hintText:
-                          'Enter ${titles[index].toString().toLowerCase()} for Product',
-                      label: Text(
-                        '${titles[index]}',
-                      )),
-                ),
-              );
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    var data = Product(
-                        id: DateTime.now().toString(),
-                        title: nameController.text,
-                        description: descController.text,
-                        price: double.parse(priceCtrllr.text),
-                        imageUrl: urlController.text);
-                    // print(data);
-                    post.addProduct(data);
-                    Navigator.of(context).pop();
+      body: loading
+          ? LoadingIndicator(indicatorType: Indicator.ballScale)
+          : ListView(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: titles.length,
+                  itemBuilder: (context, index) {
+                    final String name;
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: controllers[index],
+                        decoration: InputDecoration(
+                            hintText:
+                                'Enter ${titles[index].toString().toLowerCase()} for Product',
+                            label: Text(
+                              '${titles[index]}',
+                            )),
+                      ),
+                    );
                   },
-                  child: Text('Submit'))
-            ],
-          )
-        ],
-      ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            loading == true;
+                          });
+                          var data = Product(
+                              id: DateTime.now().toString(),
+                              title: ItemForm.nameController.text,
+                              description: ItemForm.descController.text,
+                              price: double.parse(ItemForm.priceCtrllr.text),
+                              imageUrl: ItemForm.urlController.text);
+                          // print(data);
+                          Provider.of<Products>(context, listen: false)
+                              .addProduct(data)
+                              .then((_) {
+                            setState(() {
+                              loading == false;
+                            });
+                          });
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Submit'))
+                  ],
+                )
+              ],
+            ),
     );
   }
 }
