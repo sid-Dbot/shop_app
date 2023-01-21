@@ -61,30 +61,25 @@ class Products with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
-    Future.delayed(
-      Duration(seconds: 2),
-      () {
-        http
-            .post(
-          Uri.parse(url),
-          body: json.encode({
-            'Name': product.title,
-            'Description': product.description,
-            'Price': product.price,
-            'ImageUrl': product.imageUrl,
-            'favorites': product.isFav,
-          }),
-        )
-            .then((val) {
-          _items.add(Product(
-              id: val.body,
-              title: product.title,
-              description: product.description,
-              price: product.price,
-              imageUrl: product.imageUrl));
-          notifyListeners();
-        });
-      },
-    );
+    return await http
+        .post(
+      Uri.parse(url),
+      body: json.encode({
+        'Name': product.title,
+        'Description': product.description,
+        'Price': product.price,
+        'ImageUrl': product.imageUrl,
+        'favorites': product.isFav,
+      }),
+    )
+        .then((val) {
+      _items.add(Product(
+          id: val.body,
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl));
+      notifyListeners();
+    });
   }
 }

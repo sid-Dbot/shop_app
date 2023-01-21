@@ -69,14 +69,19 @@ class _ItemFormState extends State<ItemForm> {
                               price: double.parse(ItemForm.priceCtrllr.text),
                               imageUrl: ItemForm.urlController.text);
                           // print(data);
-                          Provider.of<Products>(context, listen: false)
-                              .addProduct(data)
-                              .then((_) {
-                            setState(() {
-                              loading == false;
-                            });
-                          }).then(
-                            (value) => Navigator.of(context).pop(),
+                          Future.delayed(
+                            Duration(seconds: 2),
+                            () {
+                              Provider.of<Products>(context, listen: false)
+                                  .addProduct(data)
+                                  .then((_) {
+                                setState(() {
+                                  loading == false;
+                                });
+                              }).then(
+                                (value) => Navigator.of(context).pop(),
+                              );
+                            },
                           );
                         },
                         child: Text('Submit'))
