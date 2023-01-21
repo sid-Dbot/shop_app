@@ -33,7 +33,11 @@ class _ItemFormState extends State<ItemForm> {
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
       body: loading
-          ? Center(child: LoadingIndicator(indicatorType: Indicator.ballBeat))
+          ? Center(
+              child: LoadingIndicator(
+              indicatorType: Indicator.ballBeat,
+              strokeWidth: 2,
+            ))
           : ListView(
               children: [
                 ListView.builder(
