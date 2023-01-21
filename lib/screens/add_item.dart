@@ -76,8 +76,9 @@ class _ItemFormState extends State<ItemForm> {
                             setState(() {
                               loading == false;
                             });
-                          });
-                          Navigator.of(context).pop();
+                          }).then(
+                            (value) => Navigator.of(context).pop(),
+                          );
                         },
                         child: Text('Submit'))
                   ],
