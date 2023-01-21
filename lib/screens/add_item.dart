@@ -17,7 +17,7 @@ class ItemForm extends StatefulWidget {
 class _ItemFormState extends State<ItemForm> {
   List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
 
-  final loading = true;
+  final loading = false;
 
   List<TextEditingController> controllers = [
     ItemForm.nameController,
