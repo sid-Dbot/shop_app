@@ -17,7 +17,7 @@ class ItemForm extends StatefulWidget {
 class _ItemFormState extends State<ItemForm> {
   List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
 
-  final loading = false;
+  bool loading = false;
 
   List<TextEditingController> controllers = [
     ItemForm.nameController,
@@ -33,7 +33,7 @@ class _ItemFormState extends State<ItemForm> {
     return Scaffold(
       appBar: AppBar(title: Text('Add New Product')),
       body: loading
-          ? LoadingIndicator(indicatorType: Indicator.ballScale)
+          ? Center(child: LoadingIndicator(indicatorType: Indicator.ballScale))
           : ListView(
               children: [
                 ListView.builder(
@@ -60,29 +60,26 @@ class _ItemFormState extends State<ItemForm> {
                     ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            loading == true;
+                            loading = true;
                           });
-                          // var data = Product(
-                          //     id: DateTime.now().toString(),
-                          //     title: ItemForm.nameController.text,
-                          //     description: ItemForm.descController.text,
-                          //     price: double.parse(ItemForm.priceCtrllr.text),
-                          //     imageUrl: ItemForm.urlController.text);
-                          // // print(data);
-                          // Future.delayed(
-                          //   Duration(seconds: 2),
-                          //   () {
-                          //     Provider.of<Products>(context, listen: false)
-                          //         .addProduct(data)
-                          //         .then((_) {
-                          //       setState(() {
-                          //         loading == false;
-                          //       });
-                          //     }).then(
-                          //       (value) => Navigator.of(context).pop(),
-                          //     );
-                          //   },
-                          // );
+
+                          var data = Product(
+                              id: DateTime.now().toString(),
+                              title: ItemForm.nameController.text,
+                              description: ItemForm.descController.text,
+                              price: double.parse(ItemForm.priceCtrllr.text),
+                              imageUrl: ItemForm.urlController.text);
+                          // print(data);
+
+                          Provider.of<Products>(context, listen: false)
+                              .addProduct(data)
+                              .then((_) {
+                            setState(() {
+                              loading = false;
+                            });
+                          }).then(
+                            (value) => Navigator.of(context).pop(),
+                          );
                         },
                         child: Text('Submit'))
                   ],
