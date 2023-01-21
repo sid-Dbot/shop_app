@@ -62,27 +62,27 @@ class _ItemFormState extends State<ItemForm> {
                           setState(() {
                             loading == true;
                           });
-                          var data = Product(
-                              id: DateTime.now().toString(),
-                              title: ItemForm.nameController.text,
-                              description: ItemForm.descController.text,
-                              price: double.parse(ItemForm.priceCtrllr.text),
-                              imageUrl: ItemForm.urlController.text);
-                          // print(data);
-                          Future.delayed(
-                            Duration(seconds: 2),
-                            () {
-                              Provider.of<Products>(context, listen: false)
-                                  .addProduct(data)
-                                  .then((_) {
-                                setState(() {
-                                  loading == false;
-                                });
-                              }).then(
-                                (value) => Navigator.of(context).pop(),
-                              );
-                            },
-                          );
+                          // var data = Product(
+                          //     id: DateTime.now().toString(),
+                          //     title: ItemForm.nameController.text,
+                          //     description: ItemForm.descController.text,
+                          //     price: double.parse(ItemForm.priceCtrllr.text),
+                          //     imageUrl: ItemForm.urlController.text);
+                          // // print(data);
+                          // Future.delayed(
+                          //   Duration(seconds: 2),
+                          //   () {
+                          //     Provider.of<Products>(context, listen: false)
+                          //         .addProduct(data)
+                          //         .then((_) {
+                          //       setState(() {
+                          //         loading == false;
+                          //       });
+                          //     }).then(
+                          //       (value) => Navigator.of(context).pop(),
+                          //     );
+                          //   },
+                          // );
                         },
                         child: Text('Submit'))
                   ],
