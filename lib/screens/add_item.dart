@@ -34,9 +34,14 @@ class _ItemFormState extends State<ItemForm> {
       appBar: AppBar(title: Text('Add New Product')),
       body: loading
           ? Center(
+              child: Container(
+              height: 100,
+              width: 100,
               child: LoadingIndicator(
-              indicatorType: Indicator.ballBeat,
-              strokeWidth: 2,
+                indicatorType: Indicator.ballScaleMultiple,
+                colors: [Colors.red, Colors.blue, Colors.amber],
+                strokeWidth: 4.0,
+              ),
             ))
           : ListView(
               children: [
