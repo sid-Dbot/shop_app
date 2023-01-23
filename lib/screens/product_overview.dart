@@ -19,9 +19,15 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool showFavOnly = false;
+
+  @override
+  void initState() {
+    Provider.of<Products>(context).getdata();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final productData = Provider.of<Products>(context).items;
     final product = Provider.of<Products>(context);
     final getitems = showFavOnly ? product.favOnly : product.items;
     return Scaffold(
@@ -119,7 +125,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 ),
               ),
             ),
-          ), GestureDetector(
+          ),
+          GestureDetector(
             onTap: (() {
               Navigator.of(context).pushNamed('/add_Product');
             }),

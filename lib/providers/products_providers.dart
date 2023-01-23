@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../Models/product.dart';
 
 class Products with ChangeNotifier {
-  final List<Product> _items = [
+  List<Product> _items = [
     Product(
       id: 'p1',
       title: 'Hammer',
@@ -56,6 +56,28 @@ class Products with ChangeNotifier {
 
   Product findbyid(String id) {
     return items.firstWhere((prod) => prod.id == id);
+  }
+
+  Future getdata() async {
+    const url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
+
+    var response = await http.get(Uri.parse(url));
+    final List<Product> fetchedData = [];
+
+    final savedData = (jsonDecode(response.body)) as Map<String, dynamic>;
+    savedData.forEach(
+      (key, value) => fetchedData.add(Product(
+          id: key,
+          title: value['name'],
+          description: value['description'],
+          price: value['price'],
+          imageUrl: value['imageurl'],
+          isFav: value['Favorites'])),
+    );
+    _items = fetchedData;
+
+    notifyListeners();
   }
 
   Future<void> addProduct(Product product) async {
