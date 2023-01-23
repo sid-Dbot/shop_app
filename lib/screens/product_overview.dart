@@ -22,8 +22,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
-    Future.delayed(Duration.zero,
-        () => Provider.of<Products>(context, listen: false).getdata());
+    Future.delayed(
+      Duration.zero,
+    ).then((value) => Provider.of<Products>(context, listen: false).getdata());
 
     super.initState();
   }
@@ -31,6 +32,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context);
+
     final getitems = showFavOnly ? product.favOnly : product.items;
     return Scaffold(
       appBar: AppBar(

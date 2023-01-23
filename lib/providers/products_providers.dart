@@ -7,28 +7,28 @@ import '../Models/product.dart';
 
 class Products with ChangeNotifier {
   List<Product> _items = [
-    Product(
-      id: 'p1',
-      title: 'Hammer',
-      description: "A tool that can smash anything.",
-      price: 0.99,
-      imageUrl:
-          'https://www.shutterstock.com/image-photo/close-orange-iron-hammer-medium-260nw-1937103445.jpg',
-    ),
-    Product(
-        id: 'p2',
-        title: 'Net',
-        description: 'Net used for fishing',
-        price: 2.3,
-        imageUrl:
-            'https://m.media-amazon.com/images/W/WEBP_402378-T1/images/I/71B5V1IUZLL._AC_UL320_.jpg'),
-    Product(
-        id: 'p3',
-        title: 'Pen',
-        description: "Writing Pen",
-        price: 4.5,
-        imageUrl:
-            'https://images.thepencompany.com/3/nodes/810732.jpg?width=600&height=600&strategy=a')
+    // Product(
+    //   id: 'p1',
+    //   title: 'Hammer',
+    //   description: "A tool that can smash anything.",
+    //   price: 0.99,
+    //   imageUrl:
+    //       'https://www.shutterstock.com/image-photo/close-orange-iron-hammer-medium-260nw-1937103445.jpg',
+    // ),
+    // Product(
+    //     id: 'p2',
+    //     title: 'Net',
+    //     description: 'Net used for fishing',
+    //     price: 2.3,
+    //     imageUrl:
+    //         'https://m.media-amazon.com/images/W/WEBP_402378-T1/images/I/71B5V1IUZLL._AC_UL320_.jpg'),
+    // Product(
+    //     id: 'p3',
+    //     title: 'Pen',
+    //     description: "Writing Pen",
+    //     price: 4.5,
+    //     imageUrl:
+    //         'https://images.thepencompany.com/3/nodes/810732.jpg?width=600&height=600&strategy=a')
   ];
 
   //bool showFavoritesOnly = false;
@@ -58,7 +58,7 @@ class Products with ChangeNotifier {
     return items.firstWhere((prod) => prod.id == id);
   }
 
-  Future getdata() async {
+  Future<void> getdata() async {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
 
@@ -66,17 +66,18 @@ class Products with ChangeNotifier {
     final List<Product> fetchedData = [];
 
     final savedData = (jsonDecode(response.body)) as Map<String, dynamic>;
-    print(savedData);
+
     savedData.forEach(
       (key, value) => fetchedData.add(Product(
           id: key,
-          title: value['name'],
-          description: value['description'],
-          price: value['price'],
-          imageUrl: value['imageurl'],
-          isFav: value['Favorites'])),
+          title: value['Name'],
+          description: value['Description'],
+          price: value['Price'],
+          imageUrl: value['ImageUrl'],
+          isFav: value['favorites'])),
     );
     _items = fetchedData;
+    print(fetchedData);
 
     notifyListeners();
   }
