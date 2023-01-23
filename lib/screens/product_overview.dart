@@ -22,7 +22,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
   @override
   void initState() {
-    Provider.of<Products>(context).getdata();
+    Future.delayed(Duration.zero,
+        () => Provider.of<Products>(context, listen: false).getdata());
+
     super.initState();
   }
 

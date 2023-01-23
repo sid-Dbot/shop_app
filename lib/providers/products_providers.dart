@@ -66,6 +66,7 @@ class Products with ChangeNotifier {
     final List<Product> fetchedData = [];
 
     final savedData = (jsonDecode(response.body)) as Map<String, dynamic>;
+    print(savedData);
     savedData.forEach(
       (key, value) => fetchedData.add(Product(
           id: key,
