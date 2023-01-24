@@ -81,6 +81,13 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteProduct(String id) async {
+    final url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
+    await http.delete(Uri.parse(url));
+    notifyListeners();
+  }
+
   Future<void> addProduct(Product product) async {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
