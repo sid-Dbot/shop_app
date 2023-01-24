@@ -67,6 +67,12 @@ class _YourProductsState extends State<YourProducts> {
                                   onPressed: () {
                                     value.deleteProduct(value.items[index].id);
                                     setState(() {});
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content:
+                                          Text('Item successfully deleted!'),
+                                      duration: Duration(seconds: 2),
+                                    ));
                                   },
                                   icon: Icon(
                                     Icons.delete_forever,
