@@ -38,7 +38,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     final getitems = showFavOnly ? product.favOnly : product.items;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shop'),
+        title: const Text(
+          'Shop',
+        ),
         actions: [
           PopupMenuButton(
             onSelected: (value) {
@@ -112,48 +114,64 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ),
       ),
       drawer: Drawer(
+          backgroundColor: Colors.amber,
           child: Column(
-        children: [
-          DrawerHeader(
-              child: CircleAvatar(
-            radius: 100,
-            child: Icon(
-              Icons.person,
-              size: 100,
-            ),
+            children: [
+              DrawerHeader(
+                  child: CircleAvatar(
+                radius: 100,
+                child: Icon(
+                  Icons.person,
+                  size: 100,
+                ),
+              )),
+              GestureDetector(
+                onTap: (() {
+                  Navigator.of(context).pushNamed('/orders');
+                }),
+                child: Card(
+                  elevation: 7,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Orders',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (() {
+                  Navigator.of(context).pushNamed('/add_Product');
+                }),
+                child: Card(
+                  elevation: 7,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Add Product',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (() {
+                  Navigator.of(context).pushNamed('/your_Products');
+                }),
+                child: Card(
+                  elevation: 7,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Your products',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           )),
-          GestureDetector(
-            onTap: (() {
-              Navigator.of(context).pushNamed('/orders');
-            }),
-            child: Card(
-              elevation: 7,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Orders',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: (() {
-              Navigator.of(context).pushNamed('/add_Product');
-            }),
-            child: Card(
-              elevation: 7,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Add Product',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-            ),
-          )
-        ],
-      )),
     );
   }
 }

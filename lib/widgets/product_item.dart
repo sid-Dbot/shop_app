@@ -68,7 +68,7 @@ class ProductItem extends StatelessWidget {
             child: imgisthere
                 ? Image.network(
                     product.imageUrl,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   )
                 : Center(
                     child: Container(
