@@ -77,7 +77,6 @@ class Products with ChangeNotifier {
           isFav: value['favorites'])),
     );
     _items = fetchedData;
-    print(fetchedData);
 
     notifyListeners();
   }
@@ -103,7 +102,6 @@ class Products with ChangeNotifier {
           description: product.description,
           price: product.price,
           imageUrl: product.imageUrl));
-      notifyListeners();
     });
   }
 }

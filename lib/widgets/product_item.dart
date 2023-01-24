@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/Models/product.dart';
 import 'package:shop_app/providers/cart.dart';
@@ -6,9 +7,11 @@ import 'package:shop_app/providers/products_providers.dart';
 import 'package:shop_app/screens/product_details.dart';
 
 class ProductItem extends StatelessWidget {
+  //ProductItem({required this.imgisthere});
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
+    var imgisthere = product.imageUrl.isEmpty ? false : true;
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
@@ -46,16 +49,38 @@ class ProductItem extends StatelessWidget {
                   ),
                   onPressed: () {
                     value.addToCart(product.id, product.price, product.title);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Item added to cart!'),
+                      duration: Duration(seconds: 2),
+                      action: SnackBarAction(
+                        label: 'UNDO',
+                        onPressed: () {
+                          value.removeSingleItem(product.id);
+                        },
+                      ),
+                    ));
                   },
                 ),
               ),
               backgroundColor: Colors.black38,
               title: Text(product.title, textAlign: TextAlign.center),
             ),
-            child: Image.network(
-              product.imageUrl,
-              fit: BoxFit.fill,
-            ),
+            child: imgisthere
+                ? Image.network(
+                    product.imageUrl,
+                    fit: BoxFit.fill,
+                  )
+                : Center(
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballScaleMultiple,
+                        colors: [Colors.red, Colors.blue, Colors.amber],
+                        strokeWidth: 4.0,
+                      ),
+                    ),
+                  ),
           ),
         ),
       ),

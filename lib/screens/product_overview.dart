@@ -19,9 +19,11 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool showFavOnly = false;
+  bool dataFetched = false;
 
   @override
   void initState() {
+    //final loadData = Provider.of<Products>(context, listen: false).getdata();
     Future.delayed(
       Duration.zero,
     ).then((value) => Provider.of<Products>(context, listen: false).getdata());
@@ -88,21 +90,26 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           })
         ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(7),
-        itemCount: getitems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 5 / 4,
-          mainAxisSpacing: 7,
-          crossAxisSpacing: 7,
-        ),
-        itemBuilder: (context, index) {
-          return ChangeNotifierProvider.value(
-            value: getitems[index],
-            child: ProductItem(),
-          );
+      body: RefreshIndicator(
+        onRefresh: () {
+          return Provider.of<Products>(context, listen: false).getdata();
         },
+        child: GridView.builder(
+          padding: const EdgeInsets.all(7),
+          itemCount: getitems.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 5 / 4,
+            mainAxisSpacing: 7,
+            crossAxisSpacing: 7,
+          ),
+          itemBuilder: (context, index) {
+            return ChangeNotifierProvider.value(
+              value: getitems[index],
+              child: ProductItem(),
+            );
+          },
+        ),
       ),
       drawer: Drawer(
           child: Column(

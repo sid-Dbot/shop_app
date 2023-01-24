@@ -41,30 +41,52 @@ class CartItem extends StatelessWidget {
         child: Card(
           elevation: 9,
           color: Theme.of(context).scaffoldBackgroundColor,
-          child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  child: Text(
-                    '\$$price',
-                    style: TextStyle(fontSize: 20),
+          child: ListTile(
+            contentPadding: EdgeInsets.all(-1),
+            visualDensity: VisualDensity.comfortable,
+            leading: CircleAvatar(
+              radius: 40,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              child: Text(
+                '\$$price',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            title: Text(
+              title,
+              style: TextStyle(fontSize: 20),
+            ),
+            subtitle: Consumer<Cart>(builder: (context, value, child) {
+              return Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        value.removeSingleItem(id);
+                      },
+                      icon: Icon(
+                        Icons.remove,
+                        color: Colors.red.shade900,
+                      )),
+                  Text(
+                    'x $quantity',
+                    style: TextStyle(fontSize: 15),
                   ),
-                ),
-                title: Text(
-                  title,
-                  style: TextStyle(fontSize: 25),
-                ),
-                subtitle: Text(
-                  'x $quantity',
-                  style: TextStyle(fontSize: 20),
-                ),
-                trailing: Text(
-                  'Total:\$${(price * quantity).toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )),
+                  IconButton(
+                      onPressed: () {
+                        value.addToCart(id, price, title);
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.blue[900],
+                      )),
+                ],
+              );
+            }),
+            trailing: Text(
+              'Total:\$${(price * quantity).toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
         ),
       ),
     );
