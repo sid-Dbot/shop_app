@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/products_providers.dart';
 
-class YourProducts extends StatefulWidget {
-  const YourProducts({super.key});
+class ManageProductsScreen extends StatefulWidget {
+  const ManageProductsScreen({super.key});
 
   @override
-  State<YourProducts> createState() => _YourProductsState();
+  State<ManageProductsScreen> createState() => _YourProductsState();
 }
 
-class _YourProductsState extends State<YourProducts> {
+class _YourProductsState extends State<ManageProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

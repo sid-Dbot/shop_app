@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
                 //   ],
                 // ),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.65,
+                  height: MediaQuery.of(context).size.height * 0.7,
                   decoration: BoxDecoration(
                     border: Border.fromBorderSide(
                       BorderSide(color: Colors.black),
@@ -72,29 +72,40 @@ class CartScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 7, bottom: 7),
                   child: GestureDetector(
                     onTap: (() {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Confirm order?'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Provider.of<OrdersList>(context,
-                                            listen: false)
-                                        .addOrder(
-                                            DateTime.now().toString(),
-                                            value.items.values.toList(),
-                                            DateTime.now(),
-                                            value.totalAmt);
-                                    value.clearCart();
-                                  },
-                                  child: Text('Yes!')),
-                              TextButton(onPressed: () {}, child: Text('No!'))
-                            ],
-                          );
-                        },
-                      );
+                      if (value.itemCount == 0) {
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Confirm order?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'No!',
+                                      style: TextStyle(color: Colors.red[900]),
+                                    )),
+                                TextButton(
+                                    onPressed: () {
+                                      Provider.of<OrdersList>(context,
+                                              listen: false)
+                                          .addOrder(
+                                              DateTime.now().toString(),
+                                              value.items.values.toList(),
+                                              DateTime.now(),
+                                              value.totalAmt);
+                                      value.clearCart();
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Yes!')),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     }),
                     child: Container(
                       width: double.infinity,

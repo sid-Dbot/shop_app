@@ -164,7 +164,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Your products',
+                      'Manage products',
                       style: TextStyle(fontSize: 25),
                     ),
                   ),
