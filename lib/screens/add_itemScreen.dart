@@ -151,12 +151,14 @@ class _ItemFormState extends State<ItemForm> {
                               Provider.of<Products>(context, listen: false)
                                   .addProduct(_data)
                                   .then((_) {
-                                setState(() {
-                                  loading = false;
-                                });
-                              }).then(
-                                (value) => Navigator.of(context).pop(),
-                              );
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                  })
+                                  .then(
+                                    (value) => Navigator.of(context).pop(),
+                                  )
+                                  .then((value) => _form.currentState!.reset());
                             },
                             child: Text('Submit'))
                       ],

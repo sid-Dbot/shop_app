@@ -86,7 +86,9 @@ class Products with ChangeNotifier {
   Future<void> deleteProduct(String id) async {
     final url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
-    await http.delete(Uri.parse(url));
+    await http.delete(Uri.parse(url)).then((value) {
+      _items.removeWhere((product) => product.id == id);
+    });
     notifyListeners();
   }
 

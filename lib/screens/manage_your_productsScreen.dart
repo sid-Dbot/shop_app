@@ -81,10 +81,8 @@ class _YourProductsState extends State<ManageProductsScreen> {
                                     )),
                                 IconButton(
                                     onPressed: () {
-                                      setState(() {
-                                        value.deleteProduct(
-                                            value.items[index].id);
-                                      });
+                                      value
+                                          .deleteProduct(value.items[index].id);
 
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
