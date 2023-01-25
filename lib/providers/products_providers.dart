@@ -103,12 +103,14 @@ class Products with ChangeNotifier {
       }),
     )
         .then((val) {
-      _items.add(Product(
-          id: val.body,
-          title: product.title,
-          description: product.description,
-          price: product.price,
-          imageUrl: product.imageUrl));
+      _items.insert(
+          0,
+          Product(
+              id: val.body,
+              title: product.title,
+              description: product.description,
+              price: product.price,
+              imageUrl: product.imageUrl));
     });
   }
 }
