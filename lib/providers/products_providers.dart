@@ -68,13 +68,15 @@ class Products with ChangeNotifier {
     final savedData = (jsonDecode(response.body)) as Map<String, dynamic>;
 
     savedData.forEach(
-      (key, value) => fetchedData.add(Product(
-          id: key,
-          title: value['Name'],
-          description: value['Description'],
-          price: value['Price'],
-          imageUrl: value['ImageUrl'],
-          isFav: value['favorites'])),
+      (key, value) => fetchedData.insert(
+          0,
+          Product(
+              id: key,
+              title: value['Name'],
+              description: value['Description'],
+              price: value['Price'],
+              imageUrl: value['ImageUrl'],
+              isFav: value['favorites'])),
     );
     _items = fetchedData;
 
@@ -103,14 +105,12 @@ class Products with ChangeNotifier {
       }),
     )
         .then((val) {
-      _items.insert(
-          0,
-          Product(
-              id: val.body,
-              title: product.title,
-              description: product.description,
-              price: product.price,
-              imageUrl: product.imageUrl));
+      _items.add(Product(
+          id: val.body,
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl));
     });
   }
 }
