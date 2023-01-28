@@ -18,15 +18,24 @@ class _ItemFormState extends State<ItemForm> {
   //List titles = ['Name', 'Description', 'Unit Price', 'imgURL'];
 
   bool loading = false;
-  final _form = GlobalKey<FormFieldState>();
+  bool validity = false;
+  final _form = GlobalKey<FormState>();
   var _data = Product(
       id: DateTime.now().toString(),
       title: '',
       description: '',
       price: 0,
       imageUrl: '');
+  @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   _form.currentState?.reset();
+  // }
 
   void _saveform() {
+    validity = _form.currentState!.validate();
+
     _form.currentState!.save();
   }
 
@@ -62,9 +71,6 @@ class _ItemFormState extends State<ItemForm> {
                   children: [
                     TextFormField(
                       controller: ItemForm.nameController,
-                      onFieldSubmitted: (value) {
-                        _saveform();
-                      },
                       onSaved: (newValue) {
                         _data = Product(
                             id: _data.id,
@@ -73,6 +79,20 @@ class _ItemFormState extends State<ItemForm> {
                             price: _data.price,
                             imageUrl: _data.imageUrl);
                       },
+                      onChanged: (value) {
+                        value == ' ';
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Title cannot be blank!';
+                        }
+                        if (value.length < 5) {
+                          return 'Too short!';
+                        }
+                      },
+                      // onFieldSubmitted: (value) {
+                      //   _form.currentState!.validate();
+                      // },
                       decoration: InputDecoration(
                         label: Text('Title'),
                       ),
@@ -80,13 +100,13 @@ class _ItemFormState extends State<ItemForm> {
                     ),
                     TextFormField(
                       controller: ItemForm.descController,
-                      onFieldSubmitted: (value) {
-                        _saveform();
-                      },
                       maxLines: 3,
                       decoration: InputDecoration(
                         label: Text('Description'),
                       ),
+                      // onFieldSubmitted: (value) {
+                      //   _form.currentState!.validate();
+                      // },
                       textInputAction: TextInputAction.next,
                       onSaved: (newValue) {
                         _data = Product(
@@ -96,17 +116,27 @@ class _ItemFormState extends State<ItemForm> {
                             price: _data.price,
                             imageUrl: _data.imageUrl);
                       },
+                      validator: (value) {
+                        if (value!.length < 10) {
+                          return 'Description needs to be longer!';
+                        }
+                      },
                     ),
                     TextFormField(
                       controller: ItemForm.priceCtrllr,
-                      onFieldSubmitted: (value) {
-                        _saveform();
-                      },
                       decoration: InputDecoration(
                         label: Text('Price'),
                       ),
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.number,
+                      // onFieldSubmitted: (value) {
+                      //   _form.currentState!.validate();
+                      // },
+                      validator: (value) {
+                        if (value!.isEmpty || value == '0') {
+                          return 'Must be greater than 0!';
+                        }
+                      },
                       onSaved: (newValue) {
                         _data = Product(
                             id: _data.id,
@@ -121,11 +151,20 @@ class _ItemFormState extends State<ItemForm> {
                       onFieldSubmitted: (value) {
                         _saveform();
                       },
+                      onChanged: (value) {
+                        setState(() {});
+                      },
                       maxLines: 2,
                       decoration: InputDecoration(
                         label: Text('Image Url'),
                       ),
-                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (!(value!.startsWith('http') ||
+                            value.startsWith('https'))) {
+                          return 'Invalid url.';
+                        }
+                      },
+                      textInputAction: TextInputAction.done,
                       onSaved: (newValue) {
                         _data = Product(
                             id: _data.id,
@@ -136,32 +175,55 @@ class _ItemFormState extends State<ItemForm> {
                       },
                       keyboardType: TextInputType.url,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                loading = true;
-                              });
-                              // _form.currentState!.reset();
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox.square(
+                            dimension: 150,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(11),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(11),
+                                child: Center(
+                                  child: ItemForm.urlController.text.isEmpty
+                                      ? Text('no image')
+                                      : Image.network(
+                                          ItemForm.urlController.text,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                if (!validity) {
+                                  return;
+                                }
+                                setState(() {
+                                  loading = true;
+                                });
 
-                              // print(_data);
+                                // print(_data);
 
-                              Provider.of<Products>(context, listen: false)
-                                  .addProduct(_data)
-                                  .then((_) {
-                                    setState(() {
-                                      loading = false;
-                                    });
-                                  })
-                                  .then(
-                                    (value) => Navigator.of(context).pop(),
-                                  )
-                                  .then((value) => _form.currentState!.reset());
-                            },
-                            child: Text('Submit'))
-                      ],
+                                Provider.of<Products>(context, listen: false)
+                                    .addProduct(_data)
+                                    .then((_) {
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                }).then(
+                                  (value) => Navigator.of(context).pop(),
+                                );
+                              },
+                              child: Text('Submit'))
+                        ],
+                      ),
                     )
                   ],
                 ),
