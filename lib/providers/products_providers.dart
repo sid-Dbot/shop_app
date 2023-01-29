@@ -122,5 +122,6 @@ class Products with ChangeNotifier {
     const url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
     _items[indexOfProductToUpdate] = product;
+    notifyListeners();
   }
 }
