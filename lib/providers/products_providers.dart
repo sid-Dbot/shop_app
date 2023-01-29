@@ -115,4 +115,12 @@ class Products with ChangeNotifier {
           imageUrl: product.imageUrl));
     });
   }
+
+  Future<void> updateProduct(String id, Product product) async {
+    final indexOfProductToUpdate =
+        _items.indexWhere((element) => element.id == id);
+    const url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
+    _items[indexOfProductToUpdate] = product;
+  }
 }

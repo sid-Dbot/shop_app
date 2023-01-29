@@ -19,19 +19,43 @@ class _ItemFormState extends State<ItemForm> {
 
   bool loading = false;
   bool validity = false;
+  bool init = true;
   final _form = GlobalKey<FormState>();
   var _data = Product(
-      id: DateTime.now().toString(),
+      id: '',
       title: '',
       description: '',
       price: 0,
-      imageUrl: '');
+      imageUrl: '',
+      isFav: false);
+
   @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   _form.currentState?.reset();
-  // }
+  void didChangeDependencies() {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      final productId = ModalRoute.of(context)!.settings.arguments as String;
+
+      final productToEdit = Provider.of<Products>(context).findbyid(productId);
+      _data = Product(
+          id: productToEdit.id,
+          title: productToEdit.title,
+          description: productToEdit.description,
+          price: productToEdit.price,
+          imageUrl: productToEdit.imageUrl,isFav: productToEdit.isFav);
+
+      ItemForm.nameController.text = productToEdit.title;
+      ItemForm.descController.text = productToEdit.description;
+      ItemForm.priceCtrllr.text = productToEdit.price.toString();
+      ItemForm.urlController.text = productToEdit.imageUrl;
+    } else {
+      init = false;
+      ItemForm.descController.clear();
+      ItemForm.nameController.clear();
+      ItemForm.priceCtrllr.clear();
+      ItemForm.urlController.clear();
+    }
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
 
   void _saveform() {
     validity = _form.currentState!.validate();
@@ -74,6 +98,7 @@ class _ItemFormState extends State<ItemForm> {
                       onSaved: (newValue) {
                         _data = Product(
                             id: _data.id,
+                            isFav: _data.isFav,
                             title: newValue.toString(),
                             description: _data.description,
                             price: _data.price,
@@ -110,7 +135,8 @@ class _ItemFormState extends State<ItemForm> {
                       textInputAction: TextInputAction.next,
                       onSaved: (newValue) {
                         _data = Product(
-                            id: _data.id,
+                           id: _data.id,
+                            isFav: _data.isFav,
                             title: _data.title,
                             description: newValue.toString(),
                             price: _data.price,
@@ -139,7 +165,7 @@ class _ItemFormState extends State<ItemForm> {
                       },
                       onSaved: (newValue) {
                         _data = Product(
-                            id: _data.id,
+                            id: _data.id,isFav: _data.isFav,
                             title: _data.title,
                             description: _data.description,
                             price: double.parse(newValue.toString()),
@@ -159,15 +185,15 @@ class _ItemFormState extends State<ItemForm> {
                         label: Text('Image Url'),
                       ),
                       validator: (value) {
-                        if (!(value!.startsWith('http') ||
-                            value.startsWith('https'))) {
+                        if (!value!.startsWith('http') &&
+                            !value.startsWith('https')) {
                           return 'Invalid url.';
                         }
                       },
                       textInputAction: TextInputAction.done,
                       onSaved: (newValue) {
                         _data = Product(
-                            id: _data.id,
+                            id: _data.id,isFav: _data.isFav,
                             title: _data.title,
                             description: _data.description,
                             price: _data.price,
@@ -203,23 +229,37 @@ class _ItemFormState extends State<ItemForm> {
                           ElevatedButton(
                               onPressed: () {
                                 if (!validity) {
+                                  _form.currentState!.validate();
                                   return;
                                 }
                                 setState(() {
                                   loading = true;
                                 });
+                                if (ModalRoute.of(context)!
+                                        .settings
+                                        .arguments !=
+                                    null) {
+                                  Provider.of<Products>(context, listen: false)
+                                      .updateProduct(_data.id, _data)
+                                      .then((value) {
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                  }).then((value) =>
+                                          Navigator.of(context).pop());
+                                } else {
+                                  Provider.of<Products>(context, listen: false)
+                                      .addProduct(_data)
+                                      .then((_) {
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                  }).then(
+                                    (value) => Navigator.of(context).pop(),
+                                  );
+                                }
 
                                 // print(_data);
-
-                                Provider.of<Products>(context, listen: false)
-                                    .addProduct(_data)
-                                    .then((_) {
-                                  setState(() {
-                                    loading = false;
-                                  });
-                                }).then(
-                                  (value) => Navigator.of(context).pop(),
-                                );
                               },
                               child: Text('Submit'))
                         ],

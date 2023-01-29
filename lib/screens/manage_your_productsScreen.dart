@@ -73,7 +73,11 @@ class _YourProductsState extends State<ManageProductsScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                          '/add_Product',
+                                          arguments: value.items[index].id);
+                                    },
                                     icon: Icon(
                                       Icons.edit,
                                       color: Colors.yellow.shade900,
