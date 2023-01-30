@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/orders.dart';
 import 'package:shop_app/screens/add_itemScreen.dart';
+import 'package:shop_app/screens/auth_Screen.dart';
 import 'package:shop_app/screens/manage_your_productsScreen.dart';
 import 'package:shop_app/screens/ordersScreen.dart';
 
@@ -45,7 +46,7 @@ class MainApp extends StatelessWidget {
               subtitle1: TextStyle(fontSize: 25),
               bodyText2: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             )),
-        home: ProductsOverviewScreen(),
+        home: AuthenticationScreen(),
         routes: {
           '/product_details': (context) => ProductDetails(),
           '/orders': (context) => OrdersScreen(),
