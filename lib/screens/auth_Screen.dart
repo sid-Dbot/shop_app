@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class AuthenticationScreen extends StatefulWidget {
@@ -11,7 +13,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: []),
+      body: Stack(
+        children: [
+          Container(),
+        ],
+      ),
     );
   }
 }
