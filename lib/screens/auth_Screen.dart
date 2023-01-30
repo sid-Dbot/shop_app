@@ -18,6 +18,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
       body: Stack(
         children: [
           Container(
+            width: deviceSize.width,
+            height: deviceSize.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
