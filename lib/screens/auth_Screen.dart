@@ -17,7 +17,15 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
         children: [
           Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [Colors.black, Colors.red])),
+                gradient: LinearGradient(
+              colors: [
+                Colors.black.withOpacity(0.1),
+                Colors.pink.shade900.withOpacity(0.5),
+                Colors.amber.withOpacity(0.7)
+              ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+            )),
           ),
         ],
       ),
