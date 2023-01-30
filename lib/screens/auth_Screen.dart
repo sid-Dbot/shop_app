@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -33,10 +34,13 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
+              Flexible(
                 child: Container(
                   height: deviceSize.height * 0.09,
-                  width: deviceSize.width * 0.6,
+                  width: deviceSize.width * 0.7,
+                  //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
+                  transform: Matrix4.rotationZ(-8 * pi / 180)
+                    ..translate(-10, 0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(11),
                     color: Theme.of(context).colorScheme.secondary,
@@ -53,9 +57,16 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ),
                 ),
               ),
-              Container(
-                height: deviceSize.height * 0.5,
-                width: deviceSize.width * 0.7,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: deviceSize.height * 0.5,
+                  width: deviceSize.width * 0.7,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(11),
+                    color: Colors.white60,
+                  ),
+                ),
               )
             ],
           )
