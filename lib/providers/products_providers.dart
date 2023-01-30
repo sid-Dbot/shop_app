@@ -83,10 +83,10 @@ class Products with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteProduct(String id) async {
+  void deleteProduct(String id) {
     final url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
-    await http.delete(Uri.parse(url)).then((value) {
+    http.delete(Uri.parse(url)).then((value) {
       _items.removeWhere((product) => product.id == id);
     });
     notifyListeners();
@@ -119,9 +119,21 @@ class Products with ChangeNotifier {
   Future<void> updateProduct(String id, Product product) async {
     final indexOfProductToUpdate =
         _items.indexWhere((element) => element.id == id);
-    const url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
-    _items[indexOfProductToUpdate] = product;
+    var url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
+
+    await http
+        .patch(Uri.parse(url),
+            body: jsonEncode({
+              'Name': product.title,
+              'Description': product.description,
+              'Price': product.price,
+              'ImageUrl': product.imageUrl,
+              'favorites': product.isFav,
+            }))
+        .then((value) {
+      _items[indexOfProductToUpdate] = product;
+    });
     notifyListeners();
   }
 }

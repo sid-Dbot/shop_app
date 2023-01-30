@@ -58,11 +58,21 @@ class _YourProductsState extends State<ManageProductsScreen> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            Container(
-                              width: 125,
-                              child: Text(
-                                '${value.items[index].title}',
-                                //style: TextStyle(fontSize: 10),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 125,
+                                    child: Text(
+                                      '${value.items[index].title}',
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$${value.items[index].price}',
+                                  ),
+                                ],
                               ),
                             ),
                           ],
