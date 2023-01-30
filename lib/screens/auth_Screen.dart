@@ -38,9 +38,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 child: Container(
                   height: deviceSize.height * 0.09,
                   width: deviceSize.width * 0.7,
-                  //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
-                  transform: Matrix4.rotationZ(-8 * pi / 180)
-                    ..translate(-10, 0),
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
+                  transform: Matrix4.rotationZ(-8 * pi / 180),
+                  // ..translate(-10, 0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(11),
                     color: Theme.of(context).colorScheme.secondary,

@@ -40,7 +40,8 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
             scaffoldBackgroundColor: Colors.deepOrange[100],
             colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blueGrey, accentColor: Colors.amber[800]),
+                primarySwatch: Colors.blueGrey,
+                accentColor: Colors.deepOrange[800]),
             iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
             textTheme: TextTheme(
               subtitle1: TextStyle(fontSize: 25),
