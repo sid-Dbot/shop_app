@@ -33,37 +33,56 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Flexible(
-                child: Container(
-                  height: deviceSize.height * 0.09,
-                  width: deviceSize.width * 0.7,
-                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
-                  transform: Matrix4.rotationZ(-9 * pi / 180),
-                  //..translate(-10, 0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Shop',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Container(
+                margin: EdgeInsets.only(left: 20),
+                height: deviceSize.height * 0.09,
+                width: deviceSize.width * 0.7,
+                //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
+                transform: Matrix4.rotationZ(-9 * pi / 180),
+                //..translate(-10, 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(11),
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                child: Center(
+                  child: Text(
+                    'My Shop',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: deviceSize.height * 0.5,
-                  width: deviceSize.width * 0.7,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.white60,
+              Container(
+                margin: EdgeInsets.only(left: 50),
+                height: deviceSize.height * 0.5,
+                width: deviceSize.width * 0.7,
+                transform: Matrix4.rotationZ(8 * pi / 180),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(11),
+                  color: Colors.white60,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    transform: Matrix4.rotationZ(-8 * pi / 180),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50, right: 30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Login',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          TextField(),
+                          TextField(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               )
