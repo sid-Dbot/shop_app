@@ -15,7 +15,10 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(),
+          Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [Colors.black, Colors.red])),
+          ),
         ],
       ),
     );
