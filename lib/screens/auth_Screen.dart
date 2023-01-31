@@ -22,21 +22,21 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-          width: deviceSize.width,
-          height: deviceSize.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.black.withOpacity(0.5),
-                Colors.pink.shade900.withOpacity(0.5),
-                Colors.amber.withOpacity(0.7)
-              ],
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
+      body: SingleChildScrollView(
+        child: Container(
+            width: deviceSize.width,
+            height: deviceSize.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.pink.shade900.withOpacity(0.5),
+                  Colors.amber.withOpacity(0.7)
+                ],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+              ),
             ),
-          ),
-          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -195,8 +195,8 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ),
                 )
               ],
-            ),
-          )),
+            )),
+      ),
     );
   }
 }
