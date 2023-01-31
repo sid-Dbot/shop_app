@@ -42,7 +42,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   //margin: EdgeInsets.only(left: 20),
                   height: deviceSize.height * 0.1,
                   width: deviceSize.width * 0.85,
-                  //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
+                  padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 60),
                   transform: Matrix4.rotationZ(-9 * pi / 180),
                   //..translate(-10, 0),
                   decoration: BoxDecoration(
@@ -54,7 +54,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       'My Shop',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 50,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
