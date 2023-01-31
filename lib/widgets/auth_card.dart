@@ -18,23 +18,15 @@ class _AuthCardState extends State<AuthCard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20),
-          child: Container(
-            transform: Matrix4.rotationZ(-8 * pi / 180),
-            child: Text(
-              'Login',
-              style: TextStyle(fontSize: 25),
-            ),
-          ),
-        ),
         Form(
             child: Column(
           //shrinkWrap: true,
           children: [
             TextFormField(
                 decoration: InputDecoration(
-              label: Text('Email'),
+              label: Text(
+                'Email',
+              ),
             )),
             TextFormField(
                 decoration: InputDecoration(
@@ -43,17 +35,37 @@ class _AuthCardState extends State<AuthCard> {
           ],
         )),
         Padding(
-          padding: const EdgeInsets.only(
-            top: 50,
-          ),
-          child: Container(
-            transform: Matrix4.rotationZ(-8 * pi / 180),
-            child: Column(
-              children: [
-                ElevatedButton(onPressed: () {}, child: Text('Login')),
-                TextButton(onPressed: () {}, child: Text('Sign Up'))
-              ],
-            ),
+          padding: const EdgeInsets.only(top: 50),
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  'Login',
+                  style: TextStyle(fontSize: 20),
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.grey.shade800),
+                    overlayColor:
+                        MaterialStateProperty.all(Colors.lightBlue.shade700),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                    padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 11, horizontal: 25))),
+              ),
+              TextButton(
+                  style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all(Colors.grey.shade800)),
+                  onPressed: () {},
+                  child: Text(
+                    'Sign Up?',
+                    style: TextStyle(fontSize: 20),
+                  ))
+            ],
           ),
         )
       ],
