@@ -14,6 +14,10 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  AuthMode _authMode = AuthMode.Login;
+  var buttonTitle = ['Login', 'Sign Up'];
+
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
@@ -64,7 +68,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               Container(
                 //margin: EdgeInsets.only(left: 50),
                 height: deviceSize.height * 0.5,
-                width: deviceSize.width * 0.7,
+                width: deviceSize.width * 0.8,
                 // transform: Matrix4.rotationZ(8 * pi / 180),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(11),
@@ -72,9 +76,119 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 ),
                 child: Card(
                   elevation: 11,
-                  child: Padding(
-                    padding: const EdgeInsets.all(11.0),
-                    child: AuthCard(),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Form(
+                            child: _authMode == AuthMode.Login
+                                ? Column(
+                                    //shrinkWrap: true,
+                                    children: [
+                                      TextFormField(
+                                          decoration: InputDecoration(
+                                        label: Text(
+                                          'Email',
+                                        ),
+                                      )),
+                                      TextFormField(
+                                          decoration: InputDecoration(
+                                        label: Text('Password'),
+                                      ))
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          label: Text(
+                                            'Name',
+                                          ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          label: Text(
+                                            'Email',
+                                          ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          label: Text(
+                                            'Password',
+                                          ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        decoration: InputDecoration(
+                                          label: Text(
+                                            'Confirm Password',
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: _authMode == AuthMode.Login
+                                    ? Text(
+                                        'Login',
+                                        style: TextStyle(fontSize: 20),
+                                      )
+                                    : Text(
+                                        'Sign Up',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Colors.grey.shade800),
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.lightBlue.shade700),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                        EdgeInsets.symmetric(
+                                            vertical: 11, horizontal: 25))),
+                              ),
+                              TextButton(
+                                  style: ButtonStyle(
+                                      foregroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.grey.shade800)),
+                                  onPressed: () {
+                                    if (_authMode == AuthMode.Login) {
+                                      setState(() {
+                                        _authMode = AuthMode.SignUp;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        _authMode = AuthMode.Login;
+                                      });
+                                    }
+                                  },
+                                  child: _authMode == AuthMode.Login
+                                      ? Text(
+                                          'Sign Up?',
+                                          style: TextStyle(fontSize: 20),
+                                        )
+                                      : Text(
+                                          'Login?',
+                                          style: TextStyle(fontSize: 20),
+                                        ))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -94,64 +208,120 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
+  var buttonTitle = ['Login', 'Sign Up'];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Form(
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Form(
+              child: _authMode == AuthMode.Login
+                  ? Column(
+                      //shrinkWrap: true,
+                      children: [
+                        TextFormField(
+                            decoration: InputDecoration(
+                          label: Text(
+                            'Email',
+                          ),
+                        )),
+                        TextFormField(
+                            decoration: InputDecoration(
+                          label: Text('Password'),
+                        ))
+                      ],
+                    )
+                  : Column(
+                      children: [
+                        TextFormField(
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Name',
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Email',
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Password',
+                            ),
+                          ),
+                        ),
+                        TextFormField(
+                          decoration: InputDecoration(
+                            label: Text(
+                              'Confirm Password',
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+          Padding(
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
-          //shrinkWrap: true,
-          children: [
-            TextFormField(
-                decoration: InputDecoration(
-              label: Text(
-                'Email',
-              ),
-            )),
-            TextFormField(
-                decoration: InputDecoration(
-              label: Text('Password'),
-            ))
-          ],
-        )),
-        Padding(
-          padding: const EdgeInsets.only(top: 50),
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Login',
-                  style: TextStyle(fontSize: 20),
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.grey.shade800),
-                    overlayColor:
-                        MaterialStateProperty.all(Colors.lightBlue.shade700),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                    ),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 11, horizontal: 25))),
-              ),
-              TextButton(
-                  style: ButtonStyle(
-                      foregroundColor:
-                          MaterialStateProperty.all(Colors.grey.shade800)),
+              children: [
+                ElevatedButton(
                   onPressed: () {},
-                  child: Text(
-                    'Sign Up?',
-                    style: TextStyle(fontSize: 20),
-                  ))
-            ],
-          ),
-        )
-      ],
+                  child: _authMode == AuthMode.Login
+                      ? Text(
+                          'Login',
+                          style: TextStyle(fontSize: 20),
+                        )
+                      : Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.grey.shade800),
+                      overlayColor:
+                          MaterialStateProperty.all(Colors.lightBlue.shade700),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(vertical: 11, horizontal: 25))),
+                ),
+                TextButton(
+                    style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.grey.shade800)),
+                    onPressed: () {
+                      if (_authMode == AuthMode.Login) {
+                        setState(() {
+                          _authMode = AuthMode.SignUp;
+                        });
+                      } else {
+                        setState(() {
+                          _authMode = AuthMode.Login;
+                        });
+                      }
+                    },
+                    child: _authMode == AuthMode.Login
+                        ? Text(
+                            'Sign Up?',
+                            style: TextStyle(fontSize: 20),
+                          )
+                        : Text(
+                            'Login?',
+                            style: TextStyle(fontSize: 20),
+                          ))
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
