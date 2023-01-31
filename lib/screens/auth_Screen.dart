@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shop_app/widgets/auth_card.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({super.key});
@@ -38,7 +39,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 height: deviceSize.height * 0.09,
                 width: deviceSize.width * 0.7,
                 //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 92),
-                transform: Matrix4.rotationZ(-9 * pi / 180),
+                //transform: Matrix4.rotationZ(-9 * pi / 180),
                 //..translate(-10, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(11),
@@ -62,28 +63,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 transform: Matrix4.rotationZ(8 * pi / 180),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(11),
-                  color: Colors.white60,
+                  color: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    transform: Matrix4.rotationZ(-8 * pi / 180),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 50, right: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          TextField(),
-                          TextField(),
-                        ],
-                      ),
-                    ),
-                  ),
+                  padding: const EdgeInsets.all(11.0),
+                  child: AuthCard(),
                 ),
               )
             ],
