@@ -22,12 +22,7 @@ class _ItemFormState extends State<ItemForm> {
   bool init = true;
   final _form = GlobalKey<FormState>();
   var _data = Product(
-      id: '',
-      title: '',
-      description: '',
-      price: 0,
-      imageUrl: '',
-      isFav: false);
+      id: '', title: '', description: '', price: 0, imageUrl: '', isFav: false);
 
   @override
   void didChangeDependencies() {
@@ -40,7 +35,8 @@ class _ItemFormState extends State<ItemForm> {
           title: productToEdit.title,
           description: productToEdit.description,
           price: productToEdit.price,
-          imageUrl: productToEdit.imageUrl,isFav: productToEdit.isFav);
+          imageUrl: productToEdit.imageUrl,
+          isFav: productToEdit.isFav);
 
       ItemForm.nameController.text = productToEdit.title;
       ItemForm.descController.text = productToEdit.description;
@@ -75,13 +71,13 @@ class _ItemFormState extends State<ItemForm> {
     final post = Provider.of<Products>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Add New Product')),
+      appBar: AppBar(title: const Text('Add New Product')),
       body: loading
           ? Center(
-              child: Container(
+              child: SizedBox(
               height: 100,
               width: 100,
-              child: LoadingIndicator(
+              child: const LoadingIndicator(
                 indicatorType: Indicator.ballScaleMultiple,
                 colors: [Colors.red, Colors.blue, Colors.amber],
                 strokeWidth: 4.0,
@@ -114,11 +110,12 @@ class _ItemFormState extends State<ItemForm> {
                         if (value.length < 5) {
                           return 'Too short!';
                         }
+                        return null;
                       },
                       // onFieldSubmitted: (value) {
                       //   _form.currentState!.validate();
                       // },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text('Title'),
                       ),
                       textInputAction: TextInputAction.next,
@@ -126,7 +123,7 @@ class _ItemFormState extends State<ItemForm> {
                     TextFormField(
                       controller: ItemForm.descController,
                       maxLines: 3,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text('Description'),
                       ),
                       // onFieldSubmitted: (value) {
@@ -135,7 +132,7 @@ class _ItemFormState extends State<ItemForm> {
                       textInputAction: TextInputAction.next,
                       onSaved: (newValue) {
                         _data = Product(
-                           id: _data.id,
+                            id: _data.id,
                             isFav: _data.isFav,
                             title: _data.title,
                             description: newValue.toString(),
@@ -146,11 +143,12 @@ class _ItemFormState extends State<ItemForm> {
                         if (value!.length < 10) {
                           return 'Description needs to be longer!';
                         }
+                        return null;
                       },
                     ),
                     TextFormField(
                       controller: ItemForm.priceCtrllr,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text('Price'),
                       ),
                       textInputAction: TextInputAction.next,
@@ -162,10 +160,12 @@ class _ItemFormState extends State<ItemForm> {
                         if (value!.isEmpty || value == '0') {
                           return 'Must be greater than 0!';
                         }
+                        return null;
                       },
                       onSaved: (newValue) {
                         _data = Product(
-                            id: _data.id,isFav: _data.isFav,
+                            id: _data.id,
+                            isFav: _data.isFav,
                             title: _data.title,
                             description: _data.description,
                             price: double.parse(newValue.toString()),
@@ -181,7 +181,7 @@ class _ItemFormState extends State<ItemForm> {
                         setState(() {});
                       },
                       maxLines: 2,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         label: Text('Image Url'),
                       ),
                       validator: (value) {
@@ -189,11 +189,13 @@ class _ItemFormState extends State<ItemForm> {
                             !value.startsWith('https')) {
                           return 'Invalid url.';
                         }
+                        return null;
                       },
                       textInputAction: TextInputAction.done,
                       onSaved: (newValue) {
                         _data = Product(
-                            id: _data.id,isFav: _data.isFav,
+                            id: _data.id,
+                            isFav: _data.isFav,
                             title: _data.title,
                             description: _data.description,
                             price: _data.price,
@@ -217,7 +219,7 @@ class _ItemFormState extends State<ItemForm> {
                                 borderRadius: BorderRadius.circular(11),
                                 child: Center(
                                   child: ItemForm.urlController.text.isEmpty
-                                      ? Text('no image')
+                                      ? const Text('no image')
                                       : Image.network(
                                           ItemForm.urlController.text,
                                           fit: BoxFit.cover,
@@ -261,7 +263,7 @@ class _ItemFormState extends State<ItemForm> {
 
                                 // print(_data);
                               },
-                              child: Text('Submit'))
+                              child: const Text('Submit'))
                         ],
                       ),
                     )
