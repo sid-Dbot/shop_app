@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/providers/products_providers.dart';
@@ -26,7 +27,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     //final loadData = Provider.of<Products>(context, listen: false).getdata();
     Future.delayed(
       Duration.zero,
-    ).then((value) => Provider.of<Products>(context, listen: false).getdata());
+    )
+        .then(
+            (value) => Provider.of<Products>(context, listen: false).getdata())
+        .then((value) => dataFetched = true);
 
     super.initState();
   }
@@ -92,29 +96,44 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           })
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return Provider.of<Products>(context, listen: false).getdata();
-        },
-        child: GridView.builder(
-          padding: const EdgeInsets.all(7),
-          itemCount: getitems.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 5 / 4,
-            mainAxisSpacing: 7,
-            crossAxisSpacing: 7,
-          ),
-          itemBuilder: (context, index) {
-            return ChangeNotifierProvider.value(
-              value: getitems[index],
-              child: ProductItem(),
-            );
-          },
-        ),
-      ),
+      body: dataFetched
+          ? RefreshIndicator(
+              onRefresh: () {
+                return Provider.of<Products>(context, listen: false).getdata();
+              },
+              child: GridView.builder(
+                padding: const EdgeInsets.all(7),
+                itemCount: getitems.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 5 / 4,
+                  mainAxisSpacing: 7,
+                  crossAxisSpacing: 7,
+                ),
+                itemBuilder: (context, index) {
+                  return ChangeNotifierProvider.value(
+                    value: getitems[index],
+                    child: ProductItem(),
+                  );
+                },
+              ),
+            )
+          : Center(
+              child: Container(
+                height: 150,
+                width: 175,
+                child: LoadingIndicator(
+                  indicatorType: Indicator.ballTrianglePathColoredFilled,
+                  colors: [
+                    Colors.indigoAccent,
+                    Colors.deepOrange,
+                    Colors.deepPurpleAccent.shade700,
+                  ],
+                ),
+              ),
+            ),
       drawer: Drawer(
-          backgroundColor: Colors.amber,
+          backgroundColor: Colors.deepOrange,
           child: Column(
             children: [
               DrawerHeader(

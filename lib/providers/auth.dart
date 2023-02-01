@@ -7,17 +7,38 @@ class Auth with ChangeNotifier {
   String? _token;
   DateTime? _tokenDur;
   String? _userId;
+  String? get token {
+    // if (_tokenDur != null &&
+    //     _tokenDur!.isAfter(DateTime.now()) &&
+    //     _token != null) {
+    return _token;
+
+    // return null;
+  }
 
   Future<void> authenticate(
       String email, String password, String urlSegment) async {
     var url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyB2BbHhhhAolL0zXOcMlfQEIBu3CyA6Pqs';
-    await http.post(Uri.parse(url),
+    var response = await http.post(Uri.parse(url),
         body: jsonEncode({
           'email': email,
           'password': password,
           'returnSecureToken': true,
         }));
+    final responseData = jsonDecode(response.body);
+    print(responseData);
+    _token = responseData['idToken'];
+    _userId = responseData['localId'];
+    print(_token);
+    // _tokenDur = DateTime.now().add(
+    //   Duration(
+    //     seconds: int.parse(
+    //       responseData['expiresIn'],
+    //     ),
+    //   ),
+    // );
+    notifyListeners();
   }
 
   Future<void> login(String email, String password) async {

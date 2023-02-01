@@ -32,7 +32,8 @@ class Products with ChangeNotifier {
   ];
 
   //bool showFavoritesOnly = false;
-
+  final String token;
+  Products({required this.token});
   List<Product> get items {
     // if (showFavoritesOnly) {
     //   return _items.where((e) => e.isFav).toList();
@@ -59,8 +60,8 @@ class Products with ChangeNotifier {
   }
 
   Future<void> getdata() async {
-    const url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
+    final url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$token';
 
     var response = await http.get(Uri.parse(url));
     final List<Product> fetchedData = [];
@@ -85,7 +86,7 @@ class Products with ChangeNotifier {
 
   void deleteProduct(String id) {
     final url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
     http.delete(Uri.parse(url)).then((value) {
       _items.removeWhere((product) => product.id == id);
     });
@@ -93,8 +94,8 @@ class Products with ChangeNotifier {
   }
 
   Future<void> addProduct(Product product) async {
-    const url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json';
+    final url =
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$token';
     return await http
         .post(
       Uri.parse(url),
@@ -120,7 +121,7 @@ class Products with ChangeNotifier {
     final indexOfProductToUpdate =
         _items.indexWhere((element) => element.id == id);
     var url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json';
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
 
     await http
         .patch(Uri.parse(url),

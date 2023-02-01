@@ -79,7 +79,7 @@ class _ItemFormState extends State<ItemForm> {
               width: 100,
               child: const LoadingIndicator(
                 indicatorType: Indicator.ballScaleMultiple,
-                colors: [Colors.red, Colors.blue, Colors.amber],
+                colors: [Colors.deepOrange, Colors.blue, Colors.deepPurple],
                 strokeWidth: 4.0,
               ),
             ))

@@ -29,8 +29,10 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => Auth(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => Products(),
+        ChangeNotifierProxyProvider<Auth, Products>(
+          create: (context) => Products(token: null.toString()),
+          update: (context, value, previous) =>
+              Products(token: value.token.toString()),
         ),
         ChangeNotifierProvider(
           create: (context) => Cart(),
@@ -39,26 +41,29 @@ class MainApp extends StatelessWidget {
           create: (context) => OrdersList(),
         )
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-            scaffoldBackgroundColor: Colors.deepOrange[100],
-            colorScheme: ColorScheme.fromSwatch(
-                primarySwatch: Colors.blueGrey,
-                accentColor: Colors.deepOrange[800]),
-            iconTheme: const IconThemeData(color: Colors.amber, opacity: 1),
-            textTheme: TextTheme(
-              subtitle1: TextStyle(fontSize: 25),
-              bodyText2: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-            )),
-        home: AuthenticationScreen(),
-        routes: {
-          '/product_details': (context) => ProductDetails(),
-          '/orders': (context) => OrdersScreen(),
-          '/add_Product': (context) => ItemForm(),
-          '/your_Products': (context) => ManageProductsScreen(),
-          '/loginScreen': (context) => AuthenticationScreen(),
-        },
+      child: Consumer<Auth>(
+        builder: (context, value, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              scaffoldBackgroundColor: Colors.deepOrange[100],
+              colorScheme: ColorScheme.fromSwatch(
+                  primarySwatch: Colors.blueGrey,
+                  accentColor: Colors.deepOrange[800]),
+              iconTheme:
+                  const IconThemeData(color: Colors.deepOrange, opacity: 1),
+              textTheme: TextTheme(
+                subtitle1: TextStyle(fontSize: 25),
+                bodyText2: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              )),
+          home: AuthenticationScreen(),
+          routes: {
+            '/product_details': (context) => ProductDetails(),
+            '/orders': (context) => OrdersScreen(),
+            '/add_Product': (context) => ItemForm(),
+            '/your_Products': (context) => ManageProductsScreen(),
+            '/loginScreen': (context) => AuthenticationScreen(),
+          },
+        ),
       ),
     );
   }
