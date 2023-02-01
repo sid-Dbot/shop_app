@@ -1,6 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_app/providers/auth.dart';
+import 'package:shop_app/screens/product_overview.dart';
 
 enum AuthMode { Login, SignUp }
 
@@ -14,7 +18,7 @@ class AuthenticationScreen extends StatefulWidget {
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
-  var buttonTitle = ['Login', 'Sign Up'];
+  var loading = false;
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var repasswordController = TextEditingController();
@@ -111,6 +115,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                               if (value!.isEmpty) {
                                                 return 'Please fill this blank!';
                                               }
+                                              if (value.length < 8) {
+                                                return 'too short!';
+                                              }
                                               return null;
                                             },
                                             obscureText: true,
@@ -162,6 +169,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             if (value!.isEmpty) {
                                               return 'Please fill this blank!';
                                             }
+                                            if (value.length < 8) {
+                                              return 'too short!';
+                                            }
                                             return null;
                                           },
                                           decoration: const InputDecoration(
@@ -192,65 +202,116 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       ],
                                     )),
                           Padding(
-                            padding: const EdgeInsets.only(top: 35),
-                            child: Column(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    _formKey.currentState!.validate();
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.grey.shade800),
-                                      overlayColor: MaterialStateProperty.all(
-                                          Colors.lightBlue.shade700),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
+                            padding: const EdgeInsets.only(top: 25),
+                            child: loading
+                                ? Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      child: LoadingIndicator(
+                                          colors: [
+                                            Colors.deepOrange,
+                                            Colors.deepPurple,
+                                            Colors.blue
+                                          ],
+                                          indicatorType:
+                                              Indicator.ballClipRotateMultiple),
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              loading = true;
+                                            });
+                                            if (_authMode == AuthMode.SignUp) {
+                                              Provider.of<Auth>(context,
+                                                      listen: false)
+                                                  .signUp(emailController.text,
+                                                      passwordController.text)
+                                                  .then((value) => setState(() {
+                                                        _authMode =
+                                                            AuthMode.Login;
+                                                      }))
+                                                  .then((value) => setState(() {
+                                                        loading = false;
+                                                      }));
+                                            }
+                                            if (_authMode == AuthMode.Login) {
+                                              Provider.of<Auth>(context,
+                                                      listen: false)
+                                                  .login(emailController.text,
+                                                      passwordController.text)
+                                                  .then((value) =>
+                                                      Navigator.of(context)
+                                                          .push(
+                                                              MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProductsOverviewScreen(),
+                                                      )));
+                                            }
+                                          }
+                                        },
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey.shade800),
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lightBlue.shade700),
+                                            shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
+                                            ),
+                                            padding: MaterialStateProperty.all(
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 11,
+                                                    horizontal: 25))),
+                                        child: _authMode == AuthMode.Login
+                                            ? const Text(
+                                                'Login',
+                                                style: TextStyle(fontSize: 20),
+                                              )
+                                            : const Text(
+                                                'Sign Up',
+                                                style: TextStyle(fontSize: 20),
+                                              ),
                                       ),
-                                      padding: MaterialStateProperty.all(
-                                          const EdgeInsets.symmetric(
-                                              vertical: 11, horizontal: 25))),
-                                  child: _authMode == AuthMode.Login
-                                      ? const Text(
-                                          'Login',
-                                          style: TextStyle(fontSize: 20),
-                                        )
-                                      : const Text(
-                                          'Sign Up',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                ),
-                                TextButton(
-                                    style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.grey.shade800)),
-                                    onPressed: () {
-                                      _formKey.currentState!.reset();
-                                      if (_authMode == AuthMode.Login) {
-                                        setState(() {
-                                          _authMode = AuthMode.SignUp;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          _authMode = AuthMode.Login;
-                                        });
-                                      }
-                                    },
-                                    child: _authMode == AuthMode.Login
-                                        ? const Text(
-                                            'Sign Up?',
-                                            style: TextStyle(fontSize: 20),
-                                          )
-                                        : const Text(
-                                            'Login?',
-                                            style: TextStyle(fontSize: 20),
-                                          ))
-                              ],
-                            ),
+                                      TextButton(
+                                          style: ButtonStyle(
+                                              foregroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.grey.shade800)),
+                                          onPressed: () {
+                                            _formKey.currentState!.reset();
+                                            if (_authMode == AuthMode.Login) {
+                                              setState(() {
+                                                _authMode = AuthMode.SignUp;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                _authMode = AuthMode.Login;
+                                              });
+                                            }
+                                          },
+                                          child: _authMode == AuthMode.Login
+                                              ? const Text(
+                                                  'Sign Up?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                )
+                                              : const Text(
+                                                  'Login?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ))
+                                    ],
+                                  ),
                           )
                         ],
                       ),

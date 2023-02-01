@@ -8,14 +8,23 @@ class Auth with ChangeNotifier {
   DateTime? _tokenDur;
   String? _userId;
 
-  Future<void> signUp(String email, String password) async {
-    const url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2BbHhhhAolL0zXOcMlfQEIBu3CyA6Pqs';
+  Future<void> authenticate(
+      String email, String password, String urlSegment) async {
+    var url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=AIzaSyB2BbHhhhAolL0zXOcMlfQEIBu3CyA6Pqs';
     await http.post(Uri.parse(url),
         body: jsonEncode({
           'email': email,
           'password': password,
           'returnSecureToken': true,
         }));
+  }
+
+  Future<void> login(String email, String password) async {
+    return authenticate(email, password, 'signInWithPassword');
+  }
+
+  Future<void> signUp(String email, String password) async {
+    return authenticate(email, password, 'signUp');
   }
 }
