@@ -48,7 +48,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Container(
                     //margin: EdgeInsets.only(left: 20),
                     height: deviceSize.height * 0.1,
