@@ -32,8 +32,8 @@ class Products with ChangeNotifier {
   ];
 
   //bool showFavoritesOnly = false;
-  final String token;
-  Products({required this.token});
+  final String? authToken;
+  Products(this.authToken, this._items);
   List<Product> get items {
     // if (showFavoritesOnly) {
     //   return _items.where((e) => e.isFav).toList();
@@ -61,32 +61,40 @@ class Products with ChangeNotifier {
 
   Future<void> getdata() async {
     final url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$token';
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$authToken';
+    try {
+      final response = await http.get(Uri.parse(url));
+      final fetchedData = jsonDecode(response.body) as Map<String, dynamic>;
+      if (fetchedData == null) {
+        return;
+      }
+      final List<Product> Data = [];
+      print(Data);
+      if (fetchedData == null) {
+        return;
+      }
+      fetchedData.forEach(
+        (key, value) => Data.insert(
+            0,
+            Product(
+                id: key,
+                title: value['Name'],
+                description: value['Description'],
+                price: value['Price'],
+                imageUrl: value['ImageUrl'],
+                isFav: value['favorites'])),
+      );
+      _items = Data;
 
-    var response = await http.get(Uri.parse(url));
-    final List<Product> fetchedData = [];
-
-    final savedData = (jsonDecode(response.body)) as Map<String, dynamic>;
-
-    savedData.forEach(
-      (key, value) => fetchedData.insert(
-          0,
-          Product(
-              id: key,
-              title: value['Name'],
-              description: value['Description'],
-              price: value['Price'],
-              imageUrl: value['ImageUrl'],
-              isFav: value['favorites'])),
-    );
-    _items = fetchedData;
-
-    notifyListeners();
+      notifyListeners();
+    } catch (error) {
+      throw error;
+    }
   }
 
   void deleteProduct(String id) {
     final url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken';
     http.delete(Uri.parse(url)).then((value) {
       _items.removeWhere((product) => product.id == id);
     });
@@ -95,33 +103,37 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     final url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$token';
-    return await http
-        .post(
-      Uri.parse(url),
-      body: json.encode({
-        'Name': product.title,
-        'Description': product.description,
-        'Price': product.price,
-        'ImageUrl': product.imageUrl,
-        'favorites': product.isFav,
-      }),
-    )
-        .then((val) {
-      _items.add(Product(
-          id: val.body,
-          title: product.title,
-          description: product.description,
-          price: product.price,
-          imageUrl: product.imageUrl));
-    });
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$authToken';
+    try {
+      return await http
+          .post(
+        Uri.parse(url),
+        body: json.encode({
+          'Name': product.title,
+          'Description': product.description,
+          'Price': product.price,
+          'ImageUrl': product.imageUrl,
+          'favorites': product.isFav,
+        }),
+      )
+          .then((val) {
+        _items.add(Product(
+            id: jsonDecode(val.body)['name'],
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            imageUrl: product.imageUrl));
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   Future<void> updateProduct(String id, Product product) async {
     final indexOfProductToUpdate =
         _items.indexWhere((element) => element.id == id);
     var url =
-        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$token';
+        'https://fir-shop-c3476-default-rtdb.firebaseio.com/products/$id.json?auth=$authToken';
 
     await http
         .patch(Uri.parse(url),

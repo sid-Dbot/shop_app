@@ -30,9 +30,9 @@ class MainApp extends StatelessWidget {
           create: (context) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          create: (context) => Products(token: null.toString()),
+          create: (context) => Products(null, []),
           update: (context, value, previous) =>
-              Products(token: value.token.toString()),
+              Products(value.token, previous!.items),
         ),
         ChangeNotifierProvider(
           create: (context) => Cart(),
@@ -51,17 +51,19 @@ class MainApp extends StatelessWidget {
                   accentColor: Colors.deepOrange[800]),
               iconTheme:
                   const IconThemeData(color: Colors.deepOrange, opacity: 1),
-              textTheme: TextTheme(
+              textTheme: const TextTheme(
                 subtitle1: TextStyle(fontSize: 25),
                 bodyText2: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               )),
-          home: AuthenticationScreen(),
+          home: value.isAuth
+              ? ProductsOverviewScreen()
+              : const AuthenticationScreen(),
           routes: {
             '/product_details': (context) => ProductDetails(),
             '/orders': (context) => OrdersScreen(),
             '/add_Product': (context) => ItemForm(),
-            '/your_Products': (context) => ManageProductsScreen(),
-            '/loginScreen': (context) => AuthenticationScreen(),
+            '/your_Products': (context) => const ManageProductsScreen(),
+            '/loginScreen': (context) => const AuthenticationScreen(),
           },
         ),
       ),

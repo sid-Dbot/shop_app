@@ -133,79 +133,67 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ),
       drawer: Drawer(
-          backgroundColor: Colors.deepOrange,
+          //backgroundColor: Colors.deepOrange,
           child: Column(
-            children: [
-              DrawerHeader(
-                  child: CircleAvatar(
-                radius: 100,
-                child: Icon(
+        children: [
+          AppBar(
+            title: Row(
+              children: [
+                Icon(
                   Icons.person,
-                  size: 100,
+                  size: 40,
                 ),
-              )),
-              GestureDetector(
-                onTap: (() {
-                  Navigator.of(context).pushNamed('/orders');
+                Text('Welcome!')
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: (() {
+                  //Navigator.of(context).pushNamed('/loginScreen');
                 }),
-                child: Card(
-                  elevation: 7,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Orders',
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: (() {
-                  Navigator.of(context).pushNamed('/add_Product');
-                }),
-                child: Card(
-                  elevation: 7,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Add Product',
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: (() {
-                  Navigator.of(context).pushNamed('/your_Products');
-                }),
-                child: Card(
-                  elevation: 7,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Manage products',
-                      style: TextStyle(fontSize: 25),
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: (() {
-                  Navigator.of(context).pushNamed('/loginScreen');
-                }),
-                child: Card(
-                  elevation: 7,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Logout',
-                      style: TextStyle(fontSize: 25),
-                    ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
                   ),
                 ),
               ),
             ],
-          )),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.payment),
+            title: Text('Orders'),
+            onTap: () {
+              Navigator.of(context).pushNamed('/orders');
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Manage Products'),
+            onTap: () {
+              Navigator.of(context).pushNamed('/your_Products');
+            },
+          ),
+          // GestureDetector(
+          //   onTap: (() {
+          //     Navigator.of(context).pushNamed('/orders');
+          //   }),
+          //   child: Card(
+          //     elevation: 7,
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Text(
+          //         'Orders',
+          //         style: TextStyle(fontSize: 25),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
+      )),
     );
   }
 }

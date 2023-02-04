@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/Models/http_exception.dart';
 import 'package:shop_app/providers/auth.dart';
 import 'package:shop_app/screens/product_overview.dart';
 
@@ -18,11 +19,29 @@ class AuthenticationScreen extends StatefulWidget {
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
+
   var loading = false;
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
-  var repasswordController = TextEditingController();
+
   // var usernameController = TextEditingController();
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Error'),
+        content: Text(message),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Ok'))
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +78,12 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                     //..translate(-10, 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(11),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: Offset(10, -9),
+                            blurRadius: 2,
+                            color: Colors.grey.shade900)
+                      ],
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     child: const Center(
@@ -83,68 +108,22 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(11),
                     color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 2,
+                        offset: Offset(2, 3),
+                      )
+                    ],
                   ),
-                  child: Card(
-                    elevation: 11,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Form(
-                              key: _formKey,
-                              child: _authMode == AuthMode.Login
-                                  ? Column(
-                                      children: [
-                                        TextFormField(
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Please enter Email!';
-                                              }
-                                              if (!value.contains('@') ||
-                                                  !value.endsWith('.com')) {
-                                                return 'Invalid Email!';
-                                              }
-                                              return null;
-                                            },
-                                            decoration: const InputDecoration(
-                                              label: Text(
-                                                'Email',
-                                              ),
-                                            )),
-                                        TextFormField(
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Please fill this blank!';
-                                              }
-                                              if (value.length < 8) {
-                                                return 'too short!';
-                                              }
-                                              return null;
-                                            },
-                                            obscureText: true,
-                                            decoration: const InputDecoration(
-                                              label: Text('Password'),
-                                            ))
-                                      ],
-                                    )
-                                  : Column(
-                                      children: [
-                                        // TextFormField(
-                                        //   controller: usernameController,
-                                        //   textCapitalization:
-                                        //       TextCapitalization.words,
-                                        //   validator: (value) {
-                                        //     if (value!.isEmpty) {
-                                        //       return 'Please fill this blank!';
-                                        //     }
-                                        //     return null;
-                                        //   },
-                                        //   decoration: const InputDecoration(
-                                        //     label: Text(
-                                        //       'Username',
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        TextFormField(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Form(
+                            key: _formKey,
+                            child: _authMode == AuthMode.Login
+                                ? Column(
+                                    children: [
+                                      TextFormField(
                                           controller: emailController,
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -160,11 +139,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             label: Text(
                                               'Email',
                                             ),
-                                          ),
-                                        ),
-                                        TextFormField(
+                                          )),
+                                      TextFormField(
                                           controller: passwordController,
-                                          obscureText: true,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please fill this blank!';
@@ -174,147 +151,224 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             }
                                             return null;
                                           },
-                                          decoration: const InputDecoration(
-                                            label: Text(
-                                              'Password',
-                                            ),
-                                          ),
-                                        ),
-                                        TextFormField(
-                                          controller: repasswordController,
                                           obscureText: true,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Please fill this blank!';
-                                            }
-                                            if (passwordController.text !=
-                                                value) {
-                                              return 'Passwords dont match!';
-                                            }
-                                            return null;
-                                          },
                                           decoration: const InputDecoration(
-                                            label: Text(
-                                              'Confirm Password',
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    )),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: loading
-                                ? Center(
-                                    child: Container(
-                                      height: 100,
-                                      width: 100,
-                                      child: LoadingIndicator(
-                                          colors: [
-                                            Colors.deepOrange,
-                                            Colors.deepPurple,
-                                            Colors.blue
-                                          ],
-                                          indicatorType:
-                                              Indicator.ballClipRotateMultiple),
-                                    ),
+                                            label: Text('Password'),
+                                          ))
+                                    ],
                                   )
                                 : Column(
                                     children: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              loading = true;
-                                            });
+                                      // TextFormField(
+                                      //   controller: usernameController,
+                                      //   textCapitalization:
+                                      //       TextCapitalization.words,
+                                      //   validator: (value) {
+                                      //     if (value!.isEmpty) {
+                                      //       return 'Please fill this blank!';
+                                      //     }
+                                      //     return null;
+                                      //   },
+                                      //   decoration: const InputDecoration(
+                                      //     label: Text(
+                                      //       'Username',
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      TextFormField(
+                                        controller: emailController,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please enter Email!';
+                                          }
+                                          if (!value.contains('@') ||
+                                              !value.endsWith('.com')) {
+                                            return 'Invalid Email!';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          label: Text(
+                                            'Email',
+                                          ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: passwordController,
+                                        obscureText: true,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please fill this blank!';
+                                          }
+                                          if (value.length < 8) {
+                                            return 'too short!';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          label: Text(
+                                            'Password',
+                                          ),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        obscureText: true,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Please fill this blank!';
+                                          }
+                                          if (passwordController.text !=
+                                              value) {
+                                            return 'Passwords dont match!';
+                                          }
+                                          return null;
+                                        },
+                                        decoration: const InputDecoration(
+                                          label: Text(
+                                            'Confirm Password',
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25),
+                          child: loading
+                              ? Center(
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: LoadingIndicator(
+                                        colors: [
+                                          Colors.deepOrange,
+                                          Colors.deepPurple,
+                                          Colors.blue
+                                        ],
+                                        indicatorType:
+                                            Indicator.ballClipRotateMultiple),
+                                  ),
+                                )
+                              : Column(
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          try {
                                             if (_authMode == AuthMode.SignUp) {
-                                              Provider.of<Auth>(context,
+                                              await Provider.of<Auth>(context,
                                                       listen: false)
                                                   .signUp(emailController.text,
                                                       passwordController.text)
                                                   .then((value) => setState(() {
                                                         _authMode =
                                                             AuthMode.Login;
-                                                      }))
-                                                  .then((value) => setState(() {
-                                                        loading = false;
                                                       }));
                                             }
                                             if (_authMode == AuthMode.Login) {
-                                              Provider.of<Auth>(context,
+                                              await Provider.of<Auth>(context,
                                                       listen: false)
                                                   .login(emailController.text,
-                                                      passwordController.text)
-                                                  .then((value) =>
-                                                      Navigator.of(context)
-                                                          .push(
-                                                              MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProductsOverviewScreen(),
-                                                      )));
+                                                      passwordController.text);
                                             }
+                                          } on HttpException catch (error) {
+                                            var errorMessage =
+                                                'Authentication failed';
+                                            if (error
+                                                .toString()
+                                                .contains('EMAIL_EXISTS')) {
+                                              errorMessage =
+                                                  'This email address is already in use.';
+                                            } else if (error
+                                                .toString()
+                                                .contains('INVALID_EMAIL')) {
+                                              errorMessage =
+                                                  'This is not a valid email address';
+                                            } else if (error
+                                                .toString()
+                                                .contains('WEAK_PASSWORD')) {
+                                              errorMessage =
+                                                  'This password is too weak.';
+                                            } else if (error
+                                                .toString()
+                                                .contains('EMAIL_NOT_FOUND')) {
+                                              errorMessage =
+                                                  'Could not find a user with that email.';
+                                            } else if (error
+                                                .toString()
+                                                .contains('INVALID_PASSWORD')) {
+                                              errorMessage =
+                                                  'Invalid password.';
+                                            }
+                                            _showErrorDialog(errorMessage);
+                                          } catch (error) {
+                                            const errorMessage =
+                                                'Could not authenticate you. Please try again later.';
+                                            _showErrorDialog(errorMessage);
+                                          }
+                                          setState(() {
+                                            loading = false;
+                                          });
+                                        }
+                                      },
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.grey.shade800),
+                                          overlayColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.lightBlue.shade700),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20)),
+                                          ),
+                                          padding: MaterialStateProperty.all(
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 11,
+                                                  horizontal: 25))),
+                                      child: _authMode == AuthMode.Login
+                                          ? const Text(
+                                              'Login',
+                                              style: TextStyle(fontSize: 20),
+                                            )
+                                          : const Text(
+                                              'Sign Up',
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                    ),
+                                    TextButton(
+                                        style: ButtonStyle(
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey.shade800)),
+                                        onPressed: () {
+                                          _formKey.currentState!.reset();
+                                          if (_authMode == AuthMode.Login) {
+                                            setState(() {
+                                              _authMode = AuthMode.SignUp;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              _authMode = AuthMode.Login;
+                                            });
                                           }
                                         },
-                                        style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.grey.shade800),
-                                            overlayColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.lightBlue.shade700),
-                                            shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20)),
-                                            ),
-                                            padding: MaterialStateProperty.all(
-                                                const EdgeInsets.symmetric(
-                                                    vertical: 11,
-                                                    horizontal: 25))),
                                         child: _authMode == AuthMode.Login
                                             ? const Text(
-                                                'Login',
+                                                'Sign Up?',
                                                 style: TextStyle(fontSize: 20),
                                               )
                                             : const Text(
-                                                'Sign Up',
+                                                'Login?',
                                                 style: TextStyle(fontSize: 20),
-                                              ),
-                                      ),
-                                      TextButton(
-                                          style: ButtonStyle(
-                                              foregroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.grey.shade800)),
-                                          onPressed: () {
-                                            _formKey.currentState!.reset();
-                                            if (_authMode == AuthMode.Login) {
-                                              setState(() {
-                                                _authMode = AuthMode.SignUp;
-                                              });
-                                            } else {
-                                              setState(() {
-                                                _authMode = AuthMode.Login;
-                                              });
-                                            }
-                                          },
-                                          child: _authMode == AuthMode.Login
-                                              ? const Text(
-                                                  'Sign Up?',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                )
-                                              : const Text(
-                                                  'Login?',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                ))
-                                    ],
-                                  ),
-                          )
-                        ],
-                      ),
+                                              ))
+                                  ],
+                                ),
+                        )
+                      ],
                     ),
                   ),
                 )
