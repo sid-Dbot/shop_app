@@ -54,9 +54,9 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.black.withOpacity(0.5),
-                  Colors.pink.shade900.withOpacity(0.5),
-                  Colors.amber.withOpacity(0.7)
+                  Colors.black.withOpacity(0.7),
+                  Colors.amber.withOpacity(0.7),
+                  Colors.black.withOpacity(0.7),
                 ],
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
@@ -84,7 +84,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                             blurRadius: 2,
                             color: Colors.grey.shade900)
                       ],
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Colors.black.withOpacity(.5),
                     ),
                     child: const Center(
                       child: Text(
@@ -107,7 +107,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   // transform: Matrix4.rotationZ(8 * pi / 180),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(11),
-                    color: Colors.white,
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 2,
@@ -118,12 +117,85 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Form(
-                            key: _formKey,
-                            child: _authMode == AuthMode.Login
-                                ? Column(
-                                    children: [
-                                      TextFormField(
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Form(
+                              key: _formKey,
+                              child: _authMode == AuthMode.Login
+                                  ? Column(
+                                      children: [
+                                        TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            controller: emailController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please enter Email!';
+                                              }
+                                              if (!value.contains('@') ||
+                                                  !value.endsWith('.com')) {
+                                                return 'Invalid Email!';
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.email,
+                                                color: Colors.grey,
+                                              ),
+                                              label: Text(
+                                                'Email',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            )),
+                                        TextFormField(
+                                            controller: passwordController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please fill this blank!';
+                                              }
+                                              if (value.length < 8) {
+                                                return 'too short!';
+                                              }
+                                              return null;
+                                            },
+                                            obscureText: true,
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            decoration: const InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.lock,
+                                                color: Colors.grey,
+                                              ),
+                                              label: Text(
+                                                'Password',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            )),
+                                      ],
+                                    )
+                                  : Column(
+                                      children: [
+                                        // TextFormField(
+                                        //   controller: usernameController,
+                                        //   textCapitalization:
+                                        //       TextCapitalization.words,
+                                        //   validator: (value) {
+                                        //     if (value!.isEmpty) {
+                                        //       return 'Please fill this blank!';
+                                        //     }
+                                        //     return null;
+                                        //   },
+                                        //   decoration: const InputDecoration(
+                                        //     label: Text(
+                                        //       'Username',
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        TextFormField(
+                                          style: TextStyle(color: Colors.white),
                                           controller: emailController,
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -136,12 +208,21 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             return null;
                                           },
                                           decoration: const InputDecoration(
+                                            prefixIcon: Icon(
+                                              Icons.mail,
+                                              color: Colors.grey,
+                                            ),
                                             label: Text(
                                               'Email',
+                                              style: TextStyle(
+                                                  color: Colors.white),
                                             ),
-                                          )),
-                                      TextFormField(
+                                          ),
+                                        ),
+                                        TextFormField(
+                                          style: TextStyle(color: Colors.white),
                                           controller: passwordController,
+                                          obscureText: true,
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return 'Please fill this blank!';
@@ -151,86 +232,47 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                             }
                                             return null;
                                           },
-                                          obscureText: true,
                                           decoration: const InputDecoration(
-                                            label: Text('Password'),
-                                          ))
-                                    ],
-                                  )
-                                : Column(
-                                    children: [
-                                      // TextFormField(
-                                      //   controller: usernameController,
-                                      //   textCapitalization:
-                                      //       TextCapitalization.words,
-                                      //   validator: (value) {
-                                      //     if (value!.isEmpty) {
-                                      //       return 'Please fill this blank!';
-                                      //     }
-                                      //     return null;
-                                      //   },
-                                      //   decoration: const InputDecoration(
-                                      //     label: Text(
-                                      //       'Username',
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                      TextFormField(
-                                        controller: emailController,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please enter Email!';
-                                          }
-                                          if (!value.contains('@') ||
-                                              !value.endsWith('.com')) {
-                                            return 'Invalid Email!';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          label: Text(
-                                            'Email',
+                                            focusColor: Colors.grey,
+                                            prefixIcon: Icon(
+                                              Icons.lock,
+                                              color: Colors.grey,
+                                            ),
+                                            label: Text(
+                                              'Password',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      TextFormField(
-                                        controller: passwordController,
-                                        obscureText: true,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please fill this blank!';
-                                          }
-                                          if (value.length < 8) {
-                                            return 'too short!';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          label: Text(
-                                            'Password',
+                                        TextFormField(
+                                          style: TextStyle(color: Colors.white),
+                                          obscureText: true,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please fill this blank!';
+                                            }
+                                            if (passwordController.text !=
+                                                value) {
+                                              return 'Passwords dont match!';
+                                            }
+                                            return null;
+                                          },
+                                          decoration: const InputDecoration(
+                                            prefixIcon: Icon(
+                                              Icons.lock,
+                                              color: Colors.grey,
+                                            ),
+                                            label: Text(
+                                              'Confirm Password',
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      TextFormField(
-                                        obscureText: true,
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Please fill this blank!';
-                                          }
-                                          if (passwordController.text !=
-                                              value) {
-                                            return 'Passwords dont match!';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: const InputDecoration(
-                                          label: Text(
-                                            'Confirm Password',
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  )),
+                                        )
+                                      ],
+                                    )),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(top: 25),
                           child: loading

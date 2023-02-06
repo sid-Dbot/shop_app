@@ -37,9 +37,9 @@ class Auth with ChangeNotifier {
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']["message"]);
       }
-      print(response.body);
+
       debugPrint(responseData.toString());
-      print(responseData['expiresIn']);
+
       _token = responseData['idToken'];
       _userId = responseData['localId'];
       _tokenDur = DateTime.now().add(
