@@ -9,6 +9,7 @@ import 'package:shop_app/widgets/badge.dart';
 import 'package:shop_app/widgets/product_item.dart';
 
 import '../Models/product.dart';
+import '../providers/auth.dart';
 import 'cartScreen.dart';
 
 enum FilterOptions { Favorites, All }
@@ -149,7 +150,8 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             actions: [
               TextButton(
                 onPressed: (() {
-                  //Navigator.of(context).pushNamed('/loginScreen');
+                  Navigator.of(context).pop();
+                  Provider.of<Auth>(context, listen: false).logout();
                 }),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

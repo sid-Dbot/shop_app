@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/auth.dart';
@@ -45,7 +47,7 @@ class MainApp extends StatelessWidget {
         builder: (context, value, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              scaffoldBackgroundColor: Colors.grey.shade800,
+              scaffoldBackgroundColor: Colors.grey.shade900,
               colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.blueGrey,
                   accentColor: Colors.deepOrange[800]),

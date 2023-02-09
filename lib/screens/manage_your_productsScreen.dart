@@ -15,7 +15,7 @@ class _YourProductsState extends State<ManageProductsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Your products',
+          'Manage products',
         ),
         actions: [
           IconButton(

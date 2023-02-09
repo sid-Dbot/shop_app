@@ -107,6 +107,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   // transform: Matrix4.rotationZ(8 * pi / 180),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(11),
+                    color: Colors.grey.shade900,
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 2,
@@ -358,7 +359,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                       style: ButtonStyle(
                                           backgroundColor:
                                               MaterialStateProperty.all(
-                                                  Colors.grey.shade800),
+                                                  Colors.grey.shade700),
                                           overlayColor:
                                               MaterialStateProperty.all(
                                                   Colors.lightBlue.shade700),
@@ -385,7 +386,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                         style: ButtonStyle(
                                             foregroundColor:
                                                 MaterialStateProperty.all(
-                                                    Colors.grey.shade800)),
+                                                    Colors.grey.shade700)),
                                         onPressed: () {
                                           _formKey.currentState!.reset();
                                           if (_authMode == AuthMode.Login) {

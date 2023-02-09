@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.7,
                   decoration: BoxDecoration(
                     border: Border.fromBorderSide(
-                      BorderSide(color: Colors.black),
+                      BorderSide(color: Colors.grey),
                     ),
                   ),
                   child: ListView.builder(
@@ -50,7 +50,7 @@ class CartScreen extends StatelessWidget {
                 ),
                 Container(
                   decoration:
-                      BoxDecoration(border: Border.all(color: Colors.black)),
+                      BoxDecoration(border: Border.all(color: Colors.grey)),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -99,6 +99,12 @@ class CartScreen extends StatelessWidget {
                                               value.totalAmt);
                                       value.clearCart();
                                       Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              content:
+                                                  Text('Order Confirmed!')));
                                     },
                                     child: Text('Yes!')),
                               ],
