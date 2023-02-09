@@ -125,7 +125,11 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Logging In'),
+                                  Text(
+                                    'Logging In',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 25),
+                                  ),
                                   LoadingIndicator(
                                       colors: [
                                         Colors.deepOrange,
