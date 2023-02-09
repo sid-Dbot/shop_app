@@ -56,20 +56,21 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 showFavOnly = false;
               }
             },
-            icon: Icon(Icons.more_vert_outlined),
+            icon: const Icon(Icons.more_vert_outlined),
             itemBuilder: (context) {
               return [
-                PopupMenuItem(
-                    child: Text('Favorites.'), value: FilterOptions.Favorites),
-                PopupMenuItem(
-                  child: Text('Show All.'),
+                const PopupMenuItem(
+                    value: FilterOptions.Favorites, child: Text('Favorites.')),
+                const PopupMenuItem(
                   value: FilterOptions.All,
+                  child: Text('Show All.'),
                 )
               ];
             },
           ),
           Consumer<Cart>(builder: (context, value, child) {
             return Badge(
+              value: value.itemCount.toString(),
               child: IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () {
@@ -92,7 +93,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   ));
                 },
               ),
-              value: value.itemCount.toString(),
             );
           })
         ],
@@ -120,7 +120,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             )
           : Center(
-              child: Container(
+              child: SizedBox(
                 height: 150,
                 width: 175,
                 child: LoadingIndicator(
@@ -137,44 +137,43 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           //backgroundColor: Colors.deepOrange,
           child: Column(
         children: [
-          AppBar(
-            title: Row(
+          DrawerHeader(
+            child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.person,
                   size: 40,
                 ),
-                Text('Welcome!')
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: (() {
-                  Navigator.of(context).pop();
-                  Provider.of<Auth>(context, listen: false).logout();
-                }),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(fontSize: 15, color: Colors.white),
+                const Text('Welcome!'),
+                TextButton(
+                  onPressed: (() {
+                    Navigator.of(context).pop();
+                    Provider.of<Auth>(context, listen: false).logout();
+                  }),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(fontSize: 15, color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          Divider(),
+
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.payment),
-            title: Text('Orders'),
+            leading: const Icon(Icons.payment),
+            title: const Text('Orders'),
             onTap: () {
               Navigator.of(context).pushNamed('/orders');
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Manage Products'),
+            leading: const Icon(Icons.edit),
+            title: const Text('Manage Products'),
             onTap: () {
               Navigator.of(context).pushNamed('/your_Products');
             },
