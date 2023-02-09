@@ -138,31 +138,26 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           child: Column(
         children: [
           DrawerHeader(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+              Colors.black,
+              Colors.amber,
+              Colors.black,
+            ])),
             child: Row(
               children: [
                 const Icon(
                   Icons.person,
-                  size: 40,
+                  size: 50,
                 ),
-                const Text('Welcome!'),
-                TextButton(
-                  onPressed: (() {
-                    Navigator.of(context).pop();
-                    Provider.of<Auth>(context, listen: false).logout();
-                  }),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Logout',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                  ),
+                const Text(
+                  'Welcome!',
+                  style: TextStyle(fontSize: 25),
                 ),
               ],
             ),
           ),
 
-          const Divider(),
           ListTile(
             leading: const Icon(Icons.payment),
             title: const Text('Orders'),
@@ -176,6 +171,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             title: const Text('Manage Products'),
             onTap: () {
               Navigator.of(context).pushNamed('/your_Products');
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.of(context).pop();
+              Provider.of<Auth>(context, listen: false).logout();
             },
           ),
           // GestureDetector(

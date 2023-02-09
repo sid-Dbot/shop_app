@@ -55,7 +55,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               gradient: LinearGradient(
                 colors: [
                   Colors.black.withOpacity(0.7),
-                  Colors.amber.withOpacity(0.7),
+                  Colors.amber,
                   Colors.black.withOpacity(0.7),
                 ],
                 begin: Alignment.bottomLeft,
