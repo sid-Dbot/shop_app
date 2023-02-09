@@ -26,12 +26,18 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'Please wait..Logging in..',
+              'Please wait.Logging in..',
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            LoadingIndicator(
-                colors: [Colors.deepOrange, Colors.deepPurple, Colors.blue],
-                indicatorType: Indicator.ballClipRotateMultiple),
+            Center(
+              child: Container(
+                height: 200,
+                width: 200,
+                child: LoadingIndicator(
+                    colors: [Colors.deepOrange.shade200],
+                    indicatorType: Indicator.squareSpin),
+              ),
+            ),
           ],
         ),
       ),

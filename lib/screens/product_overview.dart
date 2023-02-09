@@ -124,8 +124,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 height: 150,
                 width: 175,
                 child: LoadingIndicator(
-                  indicatorType: Indicator.ballTrianglePathColoredFilled,
+                  indicatorType: Indicator.ballBeat,
                   colors: [
+                    Colors.black,
+                    Colors.teal,
                     Colors.indigoAccent,
                     Colors.deepOrange,
                     Colors.deepPurpleAccent.shade700,
