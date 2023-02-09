@@ -11,6 +11,7 @@ import 'package:shop_app/screens/add_itemScreen.dart';
 import 'package:shop_app/screens/auth_Screen.dart';
 import 'package:shop_app/screens/manage_your_productsScreen.dart';
 import 'package:shop_app/screens/ordersScreen.dart';
+import 'package:shop_app/screens/splash_screen.dart';
 
 import './providers/cart.dart';
 import './providers/products_providers.dart';
@@ -62,24 +63,10 @@ class MainApp extends StatelessWidget {
               ? ProductsOverviewScreen()
               : FutureBuilder(
                   future: value.stayLoggedIn(),
-                  builder: (context, snapshot) => snapshot.connectionState ==
-                          ConnectionState.waiting
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Please wait',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            LoadingIndicator(colors: [
-                              Colors.deepOrange,
-                              Colors.deepPurple,
-                              Colors.blue
-                            ], indicatorType: Indicator.ballClipRotateMultiple),
-                          ],
-                        )
-                      : const AuthenticationScreen(),
+                  builder: (context, snapshot) =>
+                      snapshot.connectionState == ConnectionState.waiting
+                          ? SplashScreen()
+                          : const AuthenticationScreen(),
                 ),
           routes: {
             '/product_details': (context) => ProductDetails(),
