@@ -92,7 +92,7 @@ class Auth with ChangeNotifier {
         body: jsonEncode(
             {'grant_type': "refresh_token", 'refresh_token': refreshToken}));
     final newUserData = jsonDecode(newResponse.body);
-    print(newUserData);
+    //print(newUserData);
     _token = newUserData['access_token'];
     // _userId = newUserData['localId'];
     _refreshToken = newUserData['refresh_token'];
