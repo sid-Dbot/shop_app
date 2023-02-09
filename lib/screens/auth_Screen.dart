@@ -99,414 +99,335 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ),
                 ),
                 Container(
-                  //margin: EdgeInsets.only(left: 50),
-                  height: _authMode == AuthMode.Login
-                      ? deviceSize.height * 0.4
-                      : deviceSize.height * .52,
-                  width: deviceSize.width * 0.8,
-                  // transform: Matrix4.rotationZ(8 * pi / 180),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.grey.shade900,
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 2,
-                        offset: Offset(2, 3),
-                      )
-                    ],
-                  ),
-                  child: Consumer<Auth>(
-                    builder: (context, value, child) => FutureBuilder(
-                        future: value.stayLoggedIn(),
-                        builder: (context, snapshot) => snapshot
-                                    .connectionState ==
-                                ConnectionState.waiting
-                            ? Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Please wait',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  LoadingIndicator(
-                                      colors: [
-                                        Colors.deepOrange,
-                                        Colors.deepPurple,
-                                        Colors.blue
-                                      ],
-                                      indicatorType:
-                                          Indicator.ballClipRotateMultiple),
-                                ],
-                              )
-                            : SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Form(
-                                          key: _formKey,
-                                          child: _authMode == AuthMode.Login
-                                              ? Column(
-                                                  children: [
-                                                    TextFormField(
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                        controller:
-                                                            emailController,
-                                                        validator: (value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Please enter Email!';
-                                                          }
-                                                          if (!value.contains(
-                                                                  '@') ||
-                                                              !value.endsWith(
-                                                                  '.com')) {
-                                                            return 'Invalid Email!';
-                                                          }
-                                                          return null;
-                                                        },
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          prefixIcon: Icon(
-                                                            Icons.email,
-                                                            color: Colors.grey,
-                                                          ),
-                                                          label: Text(
-                                                            'Email',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        )),
-                                                    TextFormField(
-                                                        controller:
-                                                            passwordController,
-                                                        validator: (value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Please fill this blank!';
-                                                          }
-                                                          if (value.length <
-                                                              8) {
-                                                            return 'too short!';
-                                                          }
-                                                          return null;
-                                                        },
-                                                        obscureText: true,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          prefixIcon: Icon(
-                                                            Icons.lock,
-                                                            color: Colors.grey,
-                                                          ),
-                                                          label: Text(
-                                                            'Password',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        )),
-                                                  ],
-                                                )
-                                              : Column(
-                                                  children: [
-                                                    // TextFormField(
-                                                    //   controller: usernameController,
-                                                    //   textCapitalization:
-                                                    //       TextCapitalization.words,
-                                                    //   validator: (value) {
-                                                    //     if (value!.isEmpty) {
-                                                    //       return 'Please fill this blank!';
-                                                    //     }
-                                                    //     return null;
-                                                    //   },
-                                                    //   decoration: const InputDecoration(
-                                                    //     label: Text(
-                                                    //       'Username',
-                                                    //     ),
-                                                    //   ),
-                                                    // ),
-                                                    TextFormField(
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      controller:
-                                                          emailController,
-                                                      validator: (value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Please enter Email!';
-                                                        }
-                                                        if (!value.contains(
-                                                                '@') ||
-                                                            !value.endsWith(
-                                                                '.com')) {
-                                                          return 'Invalid Email!';
-                                                        }
-                                                        return null;
-                                                      },
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        prefixIcon: Icon(
-                                                          Icons.mail,
-                                                          color: Colors.grey,
-                                                        ),
-                                                        label: Text(
-                                                          'Email',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TextFormField(
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      controller:
-                                                          passwordController,
-                                                      obscureText: true,
-                                                      validator: (value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Please fill this blank!';
-                                                        }
-                                                        if (value.length < 8) {
-                                                          return 'too short!';
-                                                        }
-                                                        return null;
-                                                      },
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        focusColor: Colors.grey,
-                                                        prefixIcon: Icon(
-                                                          Icons.lock,
-                                                          color: Colors.grey,
-                                                        ),
-                                                        label: Text(
-                                                          'Password',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    TextFormField(
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                      obscureText: true,
-                                                      validator: (value) {
-                                                        if (value!.isEmpty) {
-                                                          return 'Please fill this blank!';
-                                                        }
-                                                        if (passwordController
-                                                                .text !=
-                                                            value) {
-                                                          return 'Passwords dont match!';
-                                                        }
-                                                        return null;
-                                                      },
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        prefixIcon: Icon(
-                                                          Icons.lock,
-                                                          color: Colors.grey,
-                                                        ),
-                                                        label: Text(
-                                                          'Confirm Password',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 25),
-                                      child: loading
-                                          ? Center(
-                                              child: Container(
-                                                height: 100,
-                                                width: 100,
-                                                child: LoadingIndicator(
-                                                    colors: [
-                                                      Colors.deepOrange,
-                                                      Colors.deepPurple,
-                                                      Colors.blue
-                                                    ],
-                                                    indicatorType: Indicator
-                                                        .ballClipRotateMultiple),
-                                              ),
-                                            )
-                                          : Column(
-                                              children: [
-                                                ElevatedButton(
-                                                  onPressed: () async {
-                                                    if (_formKey.currentState!
-                                                        .validate()) {
-                                                      setState(() {
-                                                        loading = true;
-                                                      });
-                                                      try {
-                                                        if (_authMode ==
-                                                            AuthMode.SignUp) {
-                                                          await Provider.of<
-                                                                      Auth>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .signUp(
-                                                                  emailController
-                                                                      .text,
-                                                                  passwordController
-                                                                      .text)
-                                                              .then((value) =>
-                                                                  setState(() {
-                                                                    _authMode =
-                                                                        AuthMode
-                                                                            .Login;
-                                                                  }));
-                                                        }
-                                                        if (_authMode ==
-                                                            AuthMode.Login) {
-                                                          await Provider.of<
-                                                                      Auth>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .login(
-                                                                  emailController
-                                                                      .text,
-                                                                  passwordController
-                                                                      .text);
-                                                        }
-                                                      } on HttpException catch (error) {
-                                                        var errorMessage =
-                                                            'Authentication failed';
-                                                        if (error
-                                                            .toString()
-                                                            .contains(
-                                                                'EMAIL_EXISTS')) {
-                                                          errorMessage =
-                                                              'This email address is already in use.';
-                                                        } else if (error
-                                                            .toString()
-                                                            .contains(
-                                                                'INVALID_EMAIL')) {
-                                                          errorMessage =
-                                                              'This is not a valid email address';
-                                                        } else if (error
-                                                            .toString()
-                                                            .contains(
-                                                                'WEAK_PASSWORD')) {
-                                                          errorMessage =
-                                                              'This password is too weak.';
-                                                        } else if (error
-                                                            .toString()
-                                                            .contains(
-                                                                'EMAIL_NOT_FOUND')) {
-                                                          errorMessage =
-                                                              'Could not find a user with that email.';
-                                                        } else if (error
-                                                            .toString()
-                                                            .contains(
-                                                                'INVALID_PASSWORD')) {
-                                                          errorMessage =
-                                                              'Invalid password.';
-                                                        }
-                                                        _showErrorDialog(
-                                                            errorMessage);
-                                                      } catch (error) {
-                                                        const errorMessage =
-                                                            'Could not authenticate you. Please try again later.';
-                                                        _showErrorDialog(
-                                                            errorMessage);
-                                                      }
-                                                      setState(() {
-                                                        loading = false;
-                                                      });
-                                                    }
-                                                  },
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty.all(
-                                                              Colors.grey
-                                                                  .shade700),
-                                                      overlayColor:
-                                                          MaterialStateProperty
-                                                              .all(Colors
-                                                                  .lightBlue
-                                                                  .shade700),
-                                                      shape:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20)),
-                                                      ),
-                                                      padding: MaterialStateProperty
-                                                          .all(const EdgeInsets
-                                                                  .symmetric(
-                                                              vertical: 11,
-                                                              horizontal: 25))),
-                                                  child: _authMode ==
-                                                          AuthMode.Login
-                                                      ? const Text(
-                                                          'Login',
-                                                          style: TextStyle(
-                                                              fontSize: 20),
-                                                        )
-                                                      : const Text(
-                                                          'Sign Up',
-                                                          style: TextStyle(
-                                                              fontSize: 20),
-                                                        ),
+                    //margin: EdgeInsets.only(left: 50),
+                    height: _authMode == AuthMode.Login
+                        ? deviceSize.height * 0.4
+                        : deviceSize.height * .52,
+                    width: deviceSize.width * 0.8,
+                    // transform: Matrix4.rotationZ(8 * pi / 180),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(11),
+                      color: Colors.grey.shade900,
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 2,
+                          offset: Offset(2, 3),
+                        )
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Form(
+                                key: _formKey,
+                                child: _authMode == AuthMode.Login
+                                    ? Column(
+                                        children: [
+                                          TextFormField(
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              controller: emailController,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Please enter Email!';
+                                                }
+                                                if (!value.contains('@') ||
+                                                    !value.endsWith('.com')) {
+                                                  return 'Invalid Email!';
+                                                }
+                                                return null;
+                                              },
+                                              decoration: const InputDecoration(
+                                                prefixIcon: Icon(
+                                                  Icons.email,
+                                                  color: Colors.grey,
                                                 ),
-                                                TextButton(
-                                                    style: ButtonStyle(
-                                                        foregroundColor:
-                                                            MaterialStateProperty
-                                                                .all(Colors.grey
-                                                                    .shade700)),
-                                                    onPressed: () {
-                                                      _formKey.currentState!
-                                                          .reset();
-                                                      if (_authMode ==
-                                                          AuthMode.Login) {
-                                                        setState(() {
-                                                          _authMode =
-                                                              AuthMode.SignUp;
-                                                        });
-                                                      } else {
+                                                label: Text(
+                                                  'Email',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              )),
+                                          TextFormField(
+                                              controller: passwordController,
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Please fill this blank!';
+                                                }
+                                                if (value.length < 8) {
+                                                  return 'too short!';
+                                                }
+                                                return null;
+                                              },
+                                              obscureText: true,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                              decoration: const InputDecoration(
+                                                prefixIcon: Icon(
+                                                  Icons.lock,
+                                                  color: Colors.grey,
+                                                ),
+                                                label: Text(
+                                                  'Password',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              )),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          // TextFormField(
+                                          //   controller: usernameController,
+                                          //   textCapitalization:
+                                          //       TextCapitalization.words,
+                                          //   validator: (value) {
+                                          //     if (value!.isEmpty) {
+                                          //       return 'Please fill this blank!';
+                                          //     }
+                                          //     return null;
+                                          //   },
+                                          //   decoration: const InputDecoration(
+                                          //     label: Text(
+                                          //       'Username',
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            controller: emailController,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please enter Email!';
+                                              }
+                                              if (!value.contains('@') ||
+                                                  !value.endsWith('.com')) {
+                                                return 'Invalid Email!';
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.mail,
+                                                color: Colors.grey,
+                                              ),
+                                              label: Text(
+                                                'Email',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            controller: passwordController,
+                                            obscureText: true,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please fill this blank!';
+                                              }
+                                              if (value.length < 8) {
+                                                return 'too short!';
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              focusColor: Colors.grey,
+                                              prefixIcon: Icon(
+                                                Icons.lock,
+                                                color: Colors.grey,
+                                              ),
+                                              label: Text(
+                                                'Password',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          TextFormField(
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            obscureText: true,
+                                            validator: (value) {
+                                              if (value!.isEmpty) {
+                                                return 'Please fill this blank!';
+                                              }
+                                              if (passwordController.text !=
+                                                  value) {
+                                                return 'Passwords dont match!';
+                                              }
+                                              return null;
+                                            },
+                                            decoration: const InputDecoration(
+                                              prefixIcon: Icon(
+                                                Icons.lock,
+                                                color: Colors.grey,
+                                              ),
+                                              label: Text(
+                                                'Confirm Password',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 25),
+                            child: loading
+                                ? Center(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      child: LoadingIndicator(
+                                          colors: [
+                                            Colors.deepOrange,
+                                            Colors.deepPurple,
+                                            Colors.blue
+                                          ],
+                                          indicatorType:
+                                              Indicator.ballClipRotateMultiple),
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            setState(() {
+                                              loading = true;
+                                            });
+                                            try {
+                                              if (_authMode ==
+                                                  AuthMode.SignUp) {
+                                                await Provider.of<Auth>(context,
+                                                        listen: false)
+                                                    .signUp(
+                                                        emailController.text,
+                                                        passwordController.text)
+                                                    .then((value) =>
                                                         setState(() {
                                                           _authMode =
                                                               AuthMode.Login;
-                                                        });
-                                                      }
-                                                    },
-                                                    child: _authMode ==
-                                                            AuthMode.Login
-                                                        ? const Text(
-                                                            'Sign Up?',
-                                                            style: TextStyle(
-                                                                fontSize: 20),
-                                                          )
-                                                        : const Text(
-                                                            'Login?',
-                                                            style: TextStyle(
-                                                                fontSize: 20),
-                                                          ))
-                                              ],
+                                                        }));
+                                              }
+                                              if (_authMode == AuthMode.Login) {
+                                                await Provider.of<Auth>(context,
+                                                        listen: false)
+                                                    .login(
+                                                        emailController.text,
+                                                        passwordController
+                                                            .text);
+                                              }
+                                            } on HttpException catch (error) {
+                                              var errorMessage =
+                                                  'Authentication failed';
+                                              if (error
+                                                  .toString()
+                                                  .contains('EMAIL_EXISTS')) {
+                                                errorMessage =
+                                                    'This email address is already in use.';
+                                              } else if (error
+                                                  .toString()
+                                                  .contains('INVALID_EMAIL')) {
+                                                errorMessage =
+                                                    'This is not a valid email address';
+                                              } else if (error
+                                                  .toString()
+                                                  .contains('WEAK_PASSWORD')) {
+                                                errorMessage =
+                                                    'This password is too weak.';
+                                              } else if (error
+                                                  .toString()
+                                                  .contains(
+                                                      'EMAIL_NOT_FOUND')) {
+                                                errorMessage =
+                                                    'Could not find a user with that email.';
+                                              } else if (error
+                                                  .toString()
+                                                  .contains(
+                                                      'INVALID_PASSWORD')) {
+                                                errorMessage =
+                                                    'Invalid password.';
+                                              }
+                                              _showErrorDialog(errorMessage);
+                                            } catch (error) {
+                                              const errorMessage =
+                                                  'Could not authenticate you. Please try again later.';
+                                              _showErrorDialog(errorMessage);
+                                            }
+                                            setState(() {
+                                              loading = false;
+                                            });
+                                          }
+                                        },
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey.shade700),
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.lightBlue.shade700),
+                                            shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20)),
                                             ),
-                                    )
-                                  ],
-                                ),
-                              )),
-                  ),
-                ),
+                                            padding: MaterialStateProperty.all(
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 11,
+                                                    horizontal: 25))),
+                                        child: _authMode == AuthMode.Login
+                                            ? const Text(
+                                                'Login',
+                                                style: TextStyle(fontSize: 20),
+                                              )
+                                            : const Text(
+                                                'Sign Up',
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                      ),
+                                      TextButton(
+                                          style: ButtonStyle(
+                                              foregroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.grey.shade700)),
+                                          onPressed: () {
+                                            _formKey.currentState!.reset();
+                                            if (_authMode == AuthMode.Login) {
+                                              setState(() {
+                                                _authMode = AuthMode.SignUp;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                _authMode = AuthMode.Login;
+                                              });
+                                            }
+                                          },
+                                          child: _authMode == AuthMode.Login
+                                              ? const Text(
+                                                  'Sign Up?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                )
+                                              : const Text(
+                                                  'Login?',
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ))
+                                    ],
+                                  ),
+                          )
+                        ],
+                      ),
+                    )),
               ],
             )),
       ),

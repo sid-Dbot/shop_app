@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/providers/auth.dart';
 import 'package:shop_app/providers/orders.dart';
@@ -59,7 +60,27 @@ class MainApp extends StatelessWidget {
               )),
           home: value.isAuth
               ? ProductsOverviewScreen()
-              : const AuthenticationScreen(),
+              : FutureBuilder(
+                  future: value.stayLoggedIn(),
+                  builder: (context, snapshot) => snapshot.connectionState ==
+                          ConnectionState.waiting
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Please wait',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
+                            ),
+                            LoadingIndicator(colors: [
+                              Colors.deepOrange,
+                              Colors.deepPurple,
+                              Colors.blue
+                            ], indicatorType: Indicator.ballClipRotateMultiple),
+                          ],
+                        )
+                      : const AuthenticationScreen(),
+                ),
           routes: {
             '/product_details': (context) => ProductDetails(),
             '/orders': (context) => OrdersScreen(),

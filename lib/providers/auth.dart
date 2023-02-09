@@ -40,8 +40,6 @@ class Auth with ChangeNotifier {
         throw HttpException(responseData['error']["message"]);
       }
 
-      debugPrint(responseData.toString());
-
       _token = responseData['idToken'];
       _userId = responseData['localId'];
       _refreshToken = responseData['refreshToken'];
@@ -93,6 +91,7 @@ class Auth with ChangeNotifier {
         body: jsonEncode(
             {'grant_type': "refresh_token", 'refresh_token': refreshToken}));
     final newUserData = jsonDecode(newResponse.body);
+    print(newResponse);
     _token = newUserData['idToken'];
     _userId = newUserData['localId'];
     _refreshToken = newUserData['refreshToken'];
