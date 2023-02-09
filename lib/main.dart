@@ -44,8 +44,8 @@ class MainApp extends StatelessWidget {
           create: (context) => OrdersList(),
         )
       ],
-      child: Consumer<Auth>(
-        builder: (context, value, child) => MaterialApp(
+      child: Consumer<Auth>(builder: (context, value, child) {
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               scaffoldBackgroundColor: Colors.blue,
@@ -88,8 +88,8 @@ class MainApp extends StatelessWidget {
             '/your_Products': (context) => const ManageProductsScreen(),
             '/loginScreen': (context) => const AuthenticationScreen(),
           },
-        ),
-      ),
+        );
+      }),
     );
   }
 }

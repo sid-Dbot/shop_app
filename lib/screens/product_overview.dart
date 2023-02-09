@@ -36,13 +36,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
     super.initState();
   }
 
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  //   Provider.of<Auth>(context).stayLoggedIn();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context);

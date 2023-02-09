@@ -75,11 +75,12 @@ class Auth with ChangeNotifier {
 
   Future<bool> stayLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
+
     if (!prefs.containsKey('userData')) {
       return false;
     }
-    final userData = jsonDecode(prefs.getString('userData').toString())
-        as Map<String, Object>;
+    final userData = jsonDecode(prefs.getString('userData').toString());
+    // as Map<String, String>;
     final expiryDate = DateTime.parse(userData['expiryDate'].toString());
     final refreshToken = userData['refreshToken'];
     if (expiryDate.isBefore(DateTime.now())) {
@@ -91,23 +92,25 @@ class Auth with ChangeNotifier {
         body: jsonEncode(
             {'grant_type': "refresh_token", 'refresh_token': refreshToken}));
     final newUserData = jsonDecode(newResponse.body);
-    print(newResponse);
-    _token = newUserData['idToken'];
-    _userId = newUserData['localId'];
-    _refreshToken = newUserData['refreshToken'];
+    print(newUserData);
+    _token = newUserData['access_token'];
+    // _userId = newUserData['localId'];
+    _refreshToken = newUserData['refresh_token'];
     _tokenDur = DateTime.now().add(Duration(
       seconds: int.parse(
-        newUserData['expiresIn'],
+        newUserData['expires_in'],
       ),
     ));
     notifyListeners();
     return true;
   }
 
-  void logout() {
+  void logout() async {
     _token = null;
     _tokenDur = null;
     _userId = null;
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('userData');
     notifyListeners();
   }
 }
