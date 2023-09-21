@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_app/db/db.dart';
 
 import '../Models/product.dart';
 
 class Products with ChangeNotifier {
+  Db db = Db();
   List<Product> _items = [
     // Product(
     //   id: 'p1',
@@ -59,6 +61,14 @@ class Products with ChangeNotifier {
     return items.firstWhere((prod) => prod.id == id);
   }
 
+  List<Product> savedProducts = [];
+
+  Future<List<Product>> getsavedProducts() async {
+    savedProducts = await db.getAll();
+    notifyListeners();
+    return savedProducts;
+  }
+
   Future<void> getdata() async {
     final url =
         'https://fir-shop-c3476-default-rtdb.firebaseio.com/products.json?auth=$authToken';
@@ -69,7 +79,7 @@ class Products with ChangeNotifier {
         return;
       }
       final List<Product> Data = [];
-      print(Data);
+
       if (fetchedData == null) {
         return;
       }
@@ -84,6 +94,7 @@ class Products with ChangeNotifier {
                 imageUrl: value['ImageUrl'],
                 isFav: value['favorites'])),
       );
+      print(Data);
       _items = Data;
 
       notifyListeners();

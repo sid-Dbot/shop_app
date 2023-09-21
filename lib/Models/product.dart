@@ -20,4 +20,25 @@ class Product with ChangeNotifier {
     isFav = !isFav;
     notifyListeners();
   }
+
+  factory Product.fromJson(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'],
+      title: map['title'],
+      description: map['description'],
+      price: map['price'],
+      imageUrl: map['imageUrl'],
+      isFav: map['isFav'] ?? false,
+    );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      "description": description,
+      'price': price,
+      'imageUrl': imageUrl,
+      'isFav': isFav,
+    };
+  }
 }

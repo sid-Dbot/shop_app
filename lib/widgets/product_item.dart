@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/Models/product.dart';
+import 'package:shop_app/db/db.dart';
 import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/providers/products_providers.dart';
 import 'package:shop_app/screens/product_details.dart';
 
 class ProductItem extends StatelessWidget {
+  Db db = Db();
   //ProductItem({required this.imgisthere});
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,13 @@ class ProductItem extends StatelessWidget {
             ],
           ),
           child: GridTile(
+            header: GridTileBar(
+                trailing: GestureDetector(
+              child: Icon(Icons.save),
+              onTap: () {
+                db.insert(product);
+              },
+            )),
             footer: GridTileBar(
               trailing: Consumer<Product>(
                 builder: (context, value, child) => IconButton(

@@ -20,6 +20,7 @@ import './screens/product_details.dart';
 import './screens/product_overview.dart';
 
 void main(List<String> args) {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -49,7 +50,7 @@ class MainApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-              scaffoldBackgroundColor: Colors.blue,
+              scaffoldBackgroundColor: Colors.white,
               colorScheme: ColorScheme.fromSwatch(
                   primarySwatch: Colors.blueGrey,
                   accentColor: Colors.deepOrange[800]),

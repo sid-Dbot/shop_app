@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Badge;
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/db/db.dart';
 import 'package:shop_app/providers/cart.dart';
 import 'package:shop_app/providers/products_providers.dart';
 import 'package:shop_app/widgets/badge.dart';
@@ -12,7 +13,7 @@ import '../Models/product.dart';
 import '../providers/auth.dart';
 import 'cartScreen.dart';
 
-enum FilterOptions { Favorites, All }
+enum FilterOptions { Favorites, All, Saved }
 
 class ProductsOverviewScreen extends StatefulWidget {
   @override
@@ -22,16 +23,23 @@ class ProductsOverviewScreen extends StatefulWidget {
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool showFavOnly = false;
   bool dataFetched = false;
+  bool showSaved = false;
+  Db db = Db();
 
   @override
   void initState() {
-    //final loadData = Provider.of<Products>(context, listen: false).getdata();
-    Future.delayed(
-      Duration.zero,
-    )
-        .then(
-            (value) => Provider.of<Products>(context, listen: false).getdata())
+    db.initDB();
+    Provider.of<Products>(context).getsavedProducts();
+
+    Provider.of<Products>(context, listen: false)
+        .getdata()
         .then((value) => dataFetched = true);
+    // Future.delayed(
+    //   Duration.zero,
+    // )
+    //     .then(
+    //         (value) => Provider.of<Products>(context, listen: false).getdata())
+    //     .then((value) => dataFetched = true);
 
     super.initState();
   }
@@ -40,7 +48,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context);
 
-    final getitems = showFavOnly ? product.favOnly : product.items;
+    final getitems = showFavOnly
+        ? product.favOnly
+        : showSaved
+            ? product.savedProducts
+            : product.items;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -49,12 +61,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: [
           PopupMenuButton(
             onSelected: (value) {
-              setState(() {});
+              if (value == FilterOptions.Saved) {
+                showSaved = true;
+              }
               if (value == FilterOptions.Favorites) {
                 showFavOnly = true;
               } else {
                 showFavOnly = false;
               }
+              setState(() {});
             },
             icon: const Icon(Icons.more_vert_outlined),
             itemBuilder: (context) {
@@ -64,6 +79,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 const PopupMenuItem(
                   value: FilterOptions.All,
                   child: Text('Show All.'),
+                ),
+                PopupMenuItem(
+                  child: Text('Saved'),
+                  value: FilterOptions.Saved,
                 )
               ];
             },
@@ -124,13 +143,10 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 height: 150,
                 width: 175,
                 child: LoadingIndicator(
-                  indicatorType: Indicator.ballBeat,
+                  indicatorType: Indicator.ballClipRotatePulse,
                   colors: [
                     Colors.black,
-                    Colors.teal,
-                    Colors.indigoAccent,
                     Colors.deepOrange,
-                    Colors.deepPurpleAccent.shade700,
                   ],
                 ),
               ),
